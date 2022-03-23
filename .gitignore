@@ -1,0 +1,13 @@
+# IntelliJ Configurations
+.idea
+*.iml
+
+# Output
+build
+out
+
+# Gradle Files and Folders
+.gradle
+gradle
+gradlew
+gradlew.bat
