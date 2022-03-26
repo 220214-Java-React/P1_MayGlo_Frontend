@@ -2,12 +2,72 @@
 <html>
 
     <head>
+        <!-- script for this file -->
+        <!--POST request for creating a new user-->
     </head>
 
     <body>
+        <!--Sign Up Page:
+            - A user can enter all the necessary credentials
+            in order to create an account
+        -->
+
         <form>
-            <h1>Form to sign up on!</h1>
+            <fieldset>
+                <legend>Let's get you set up!</legend>
+
+            <!-- User Objects need:
+            Username
+            Password
+            Email
+            Given name
+            Surname
+            Role
+            -->
+            <!--Username Field-->
+                <label for="username">Enter a username: </label>
+                <input id="username" type="text" name="username" placeholder="username">
+                <br>
+
+            <!--Password Field-->
+                <label for="password">Enter a password: </label>
+                <input id="password" type="password" name="password" placeholder="password">
+                <br>
+
+            <!--Email Field-->
+                <label for="email">Enter your email: </label>
+                <input id="email" type="email" name="email" placeholder="123@email.com">
+                <br>
+
+            <!--Given Name Field-->
+                <label for="given_name">Enter your first name: </label>
+                <input id="given_name" type="text" name="given_name" placeholder="John">
+                <br>
+
+            <!--Surname Field-->
+                <label for="surname">Enter your last name: </label>
+                <input id="surname" type="text" name="surname" placeholder="Doe">
+                <br>
+
+            <!--Role_ID Field-->
+                <label for="roles">Select your role: </label>
+                <select id="roles" name="roles">
+                    <option value="EMPLOYEE">Employee</option>
+                    <option value="MANAGER">Financial Manager</option>
+                    <option value="ADMIN">Administrator</option>
+                </select>
+                <br>
+
+            <!--Submit Button-->
+                <input id="signUpBtn" type="button" value="Sign Up!">
+            </fieldset>
         </form>
+        
+        <!--Logout Button-->
+        <div>
+            <button id="logoutBtn" type="button">Logout</button>
+        </div>
+
     </body>
 
 </html>

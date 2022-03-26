@@ -1,4 +1,4 @@
-const mainURL = 'http://localhost:8080/';
+const mainURL = 'http://localhost:8080/';   // Only use for GETs/POSTs
 let loginUrl = 'login.html';    // Login Url
 let signUpUrl = 'signUp.html';  // Sign Up Url
 
@@ -10,15 +10,7 @@ signUpBtn.addEventListener('click', signUpFunction);
 
 function loginFunction()
 {
-    //window.open(mainURL + loginUrl, '_self');
-    location.href = mainURL + loginUrl;
-    //window.location.assign(mainURL + loginUrl);
-    // const loginDocLink = document.createElement('a');
-    // loginDocLink.href= mainURL+loginUrl;
-    // loginDocLink.target = '_self';
-    // document.body.appendChild(loginDocLink);
-    // loginDocLink.click();
-    // loginDocLink.remove();
+    window.location.href = loginUrl;
 }
 
 function signUpFunction()

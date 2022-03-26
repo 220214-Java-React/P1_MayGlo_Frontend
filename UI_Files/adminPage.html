@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- script for this file -->
+        <!--In script file: GET request for all users-->
+        <!--In script file: POST request for changes to users-->
+        <!--In script file: POST request for logging out-->
+    </head>
+
+    <body>
+        <!--Admin Page:
+        - An Admin can choose =>
+            > Form to enter a user's credentials
+            > Add User (can turn these into separate tabs in future)
+            > Update User (can turn these into separate tabs in future)
+            > Delete User (can turn these into separate tabs in future)
+            > (Admin can set users to active/inactive)
+        -->
+
+        <div>
+            <form>
+                <fieldset>
+                    <legend>Enter Credentials</legend>
+                    <!--Based on tab (if implemented), 
+                    User select can be:
+                    a sign up form for adding users,
+                    dropdown into a sign up form for updating users,
+                    and a dropdown for deleting users-->
+
+                    <!--For now, use username-->
+                    <label for="username">Enter a username: </label>
+                    <input type="text" name="username" placeholder="username">
+                    <br>
+
+                    <!--Buttons to use for navigation until/unless we utilize tabs-->
+                    <input id="addUserBtn" type="button" value="Add User">
+                    <input id="updateUserBtn" type="button" value="Update User">
+                    <input id="deleteUserBtn" type="button" value="Delete User">
+                </fieldset>
+            </form>
+        </div>
+        
+        <!--Logout Button-->
+        <div>
+            <button id="logoutBtn" type="button">Logout</button>
+        </div>
+
+    </body>
+
+</html>

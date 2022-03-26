@@ -2,19 +2,40 @@
 <html>
     <head>
         <script src="login.js" defer></script>
+        <!--In script file: POST request for checking credentials-->
     </head>
 
     <body>
+        <!--Login Page:
+        - A user can enter their username and password
+        and access their respective HTML page:
+            > adminPage.html
+            > managerPage.html
+            > employeePage.html
+        -->
+
         <div>
-                <label>Username: </label>
+            <form>
+                <!--Username Field-->
+                <label for="username">Username: </label>
                 <input id="username" type="text" name="username" placeholder="username" required />
                 <br>
                 
-                <label>Password: </label>
+                <!--Password Field-->
+                <label for="password">Password: </label>
                 <input id="password" type="password" name="password" placeholder="password" required/>
                 <br>
 
+                <!--Submit Button-->
                 <input id="loginBtn" type="button" value="Login">
+            </form>
         </div>
+
+        <!--Back Button? (May not need)-->
+        <div>
+            <button id="backBtn" type="button">Go Back</button>
+        </div>
+
     </body>
+
 </html>
