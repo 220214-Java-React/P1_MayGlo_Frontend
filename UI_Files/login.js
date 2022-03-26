@@ -1,16 +1,23 @@
-const url = ''; // Url of tomcat server
+const mainURL = 'http://localhost:8080/login.html'; // Url of tomcat server
 
 let loginBtn = document.getElementById('loginBtn');
 loginBtn.addEventListener('click', loginFunction);
 
-
-function loginFunction()
+async function loginFunction()
 {
-    let u_name = document.getElementById('u_name').textContent;
-    let p_name = document.getElementById('p_name').textContent;
+    let username = document.getElementById('username').textContent;
+    let password = document.getElementById('password').textContent;
 
-    // Put data into object
-    // Convert to JSON
+    let userObj = 
+    {
+        username: username,
+        password: password
+    }
 
-    // Use Fetch API to send/recieve info?
+    await fetch(mainURL, 
+        {
+            method:'POST',
+            headers:{"Content-type":"application/json"},
+            body: JSON.stringify(userObj)
+        });
 }
