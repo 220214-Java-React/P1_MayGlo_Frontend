@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- script for this file -->
+        <!--In script file: GET request to get all user's reimbursements-->
+        <!--In script file: POST request for changes to reimbursements (if updating)-->
+        <!--In script file: POST request for submission of new reimbursements-->
+        <!--In script file: POST request for logging out-->
+   </head>
+
+    <body>
+        <!--Employee Page
+            - An employee can see all their reimbursements
+            and submit new ones
+            - (Separte Page?) When a reimbursement is chosen:
+                > Reimbursement details are shown:
+                    ► Amount
+                    ► Time of Submission
+                    ► Time of resolution
+                    ► Description
+                    ► Receipt (NOT IMPLEMENTED)
+                    ► Payment (NOT IMPLEMENTED)
+                    ► Author
+                    ► Resolver
+                    ► Status
+                    ► Type
+
+                > Update Button (available if pending)
+            - (Separate Page?) New Reimbursement: (Contains different fields)
+                > Fill out necessary fields:
+                    ► Amount (number)
+                    ► Description (textarea)
+                    ► Receipt (NOT IMPLEMENTED)
+                    ► Payment (NOT IMPLEMENTED)
+                    ► Author (Autofill? or Not Include?)
+                    ► Status (Autofill? or Not Include?)
+                    ► Type (dropdown)
+        -->
+        <div>
+            <fieldset>
+                <legend>List of Reimbursements</legend>
+
+                <!-- IDEAS TO CONSIDER-->
+                <!-- ↑ Dynamic Appends to populate the page -->
+                <!-- ↑ Dropdown with dynamic population -->
+                <!-- ↑ A dynamic table -->
+                <p><a href="">Reimbursement #1</a></p>
+                <p><a href="">Reimbursement #2</a></p>
+                <p><a href="">Reimbursement #3</a></p>
+            </fieldset>
+        </div>
+
+        <!--New Reimbursement Button-->
+        <div>
+            <button id="newReimbBtn" type="button">New Reimbursement</button>
+        </div>
+        
+        <!--Logout Button-->
+        <div>
+            <button id="logoutBtn" type="button">Logout</button>
+        </div>
+    </body>
+
+</html>
