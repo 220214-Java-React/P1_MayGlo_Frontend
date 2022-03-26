@@ -1,6 +1,6 @@
-const mainURL = 'http://localhost:8080/';   // Only use for GETs/POSTs
-let loginUrl = 'login.html';    // Login Url
-let signUpUrl = 'signUp.html';  // Sign Up Url
+// const mainURL = 'http://localhost:8080/';   // Only use for GETs/POSTs
+const loginUrl = 'login.html';    // Login Url
+const signUpUrl = 'signUp.html';  // Sign Up Url
 
 let loginBtn = document.getElementById("loginBtn");
 loginBtn.addEventListener('click', loginFunction);
@@ -15,5 +15,5 @@ function loginFunction()
 
 function signUpFunction()
 {
-    window.location.assign(mainURL + signUpUrl);
+    window.location.href = signUpUrl;
 }
