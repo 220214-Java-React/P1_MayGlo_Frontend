@@ -9,9 +9,9 @@ const adminURL = 'admins/adminPage.html';          // Page for admins
 
 
 // Constants for the dropdown selection
-const EMP = "EMPLOYEE";
-const MANAGER = "MANAGER";
-const ADMIN = "ADMIN";
+const EMP = "0";
+const MANAGER = "1";
+const ADMIN = "2";
 
 // Sign Up Button
 let signUpBtn = document.getElementById('signUpBtn');
@@ -23,23 +23,6 @@ backBtn.addEventListener('click', goBack);
 
 async function signUpFunction()
 {
-    let id = 0; // ID for Role ID on backend
-    let roleString = document.getElementById('role').value;   // Drop down value
-
-    // Model backend design
-    switch(roleString)
-    {
-        case EMP:       // Employees
-            id = 0;
-            break;
-        case MANAGER:   // Managers
-            id = 1;
-            break;
-        case ADMIN:     // Admins
-            id = 2;
-            break;
-    }
-
     // Create a user with necessary credentials
     let userObj = 
     {
@@ -48,7 +31,7 @@ async function signUpFunction()
         email: document.getElementById('email').value,
         given_name: document.getElementById('given_name').value,
         surname: document.getElementById('surname').value,
-        role_ID: id
+        role_ID: document.getElementById('role').value      // Drop down value
     }
 
     // POST User object to create user in backend
@@ -64,7 +47,7 @@ async function signUpFunction()
     if (response.status == 204) 
     {
         // Switch page
-        switch(roleString)
+        switch(userObj.role_ID)
         {
             case EMP:       // Employees
                 window.location.href = employeeURL;
