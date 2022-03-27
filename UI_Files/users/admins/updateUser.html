@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- script for this file -->
+        <script src="updateUser.js" defer></script>
+    </head>
+
+    <body>
+        <!--Delete User Page:
+            > List of Users
+            > Admin can select a user
+            > Change those credentials
+
+            -- FOR NOW --
+            > Type in username
+            > Offer to delete
+        -->
+
+        <div>    
+            <form>
+
+            <label for="searchUsername">Enter a username: </label>
+            <input id="searchUsername" type="text" placeholder="username">
+
+            <!--Search Button-->
+                <input id="searchBtn" type="button" value="Search">
+
+            <!--Cancel Button-->
+                <input id="cancelBtn" type="button" value="Cancel">
+
+            </form>
+        </div>
+
+        <div>
+            <form id="credentials">
+                <fieldset>
+                    <legend>Select User</legend>
+    
+                <!-- User Objects need:
+                Username
+                Password
+                Email
+                Given name
+                Surname
+                Role
+                -->
+                <!--Username Field-->
+                <label for="username">Enter a new username: </label>
+                <input id="username" type="text" name="username" placeholder="username" required>
+                <br>
+
+            <!--Password Field-->
+                <label for="password">Enter a new password: </label>
+                <input id="password" type="password" name="password" placeholder="password" required>
+                <br>
+
+            <!--Email Field-->
+                <label for="email">Enter a new email: </label>
+                <input id="email" type="email" name="email" placeholder="123@email.com" required>
+                <br>
+
+            <!--Given Name Field-->
+                <label for="given_name">Enter a first name: </label>
+                <input id="given_name" type="text" name="given_name" placeholder="John" required>
+                <br>
+
+            <!--Surname Field-->
+                <label for="surname">Enter a last name: </label>
+                <input id="surname" type="text" name="surname" placeholder="Doe" required>
+                <br>
+
+            <!--Role_ID Field-->
+                <label for="role">Select the role: </label>
+                <select id="role" name="roles">
+                    <option value="EMPLOYEE">Employee</option>
+                    <option value="MANAGER">Financial Manager</option>
+                    <option value="ADMIN">Administrator</option>
+                </select>
+                <br>
+
+            <!--Update Button-->
+                <input id="updateBtn" type="button" value="Update">
+
+
+                </fieldset>
+            </form>
+        </div>
+        
+        <!--Logout Button-->
+        <div>
+            <button id="logoutBtn" type="button">Logout</button>
+        </div>
+
+    </body>
+
+</html>

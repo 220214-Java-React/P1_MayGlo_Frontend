@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- script for this file -->
+        <script src="deleteUser.js" defer></script>
+    </head>
+
+    <body>
+        <!--Update User Page:
+            > List of Users
+            > Admin can select a user
+            > Change those credentials
+
+            -- FOR NOW --
+            > Type in username
+            > Show credentials for change
+        -->
+
+        <div>    
+            <form>
+
+            <label for="searchUsername">Enter a username: </label>
+            <input id="searchUsername" type="text" placeholder="username">
+
+            <!--Search Button-->
+                <input id="searchBtn" type="button" value="Search">
+
+            <!--Cancel Button-->
+                <input id="cancelBtn" type="button" value="Cancel">
+
+            </form>
+        </div>
+
+        <div>
+            <form id="credentials">
+                <fieldset>
+                    <legend>Delete User</legend>
+    
+                <!-- User Objects need:
+                Username
+                Password
+                Email
+                Given name
+                Surname
+                Role
+                -->
+                <!--Username Field-->
+                <label for="username">Username: </label>
+                <input id="username" type="text" name="username" placeholder="username" disabled>
+                <br>
+
+            <!--Password Field-->
+                <label for="password">Password: </label>
+                <input id="password" type="password" name="password" placeholder="password" disabled>
+                <br>
+
+            <!--Email Field-->
+                <label for="email">Email: </label>
+                <input id="email" type="email" name="email" placeholder="123@email.com" disabled>
+                <br>
+
+            <!--Given Name Field-->
+                <label for="given_name">Name: </label>
+                <input id="given_name" type="text" name="given_name" placeholder="John" disabled>
+                <br>
+
+            <!--Surname Field-->
+                <label for="surname">Last name: </label>
+                <input id="surname" type="text" name="surname" placeholder="Doe" disabled>
+                <br>
+
+            <!--Role_ID Field-->
+                <label for="role">Role: </label>
+                <select id="role" name="roles" disabled>
+                    <option value="EMPLOYEE">Employee</option>
+                    <option value="MANAGER">Financial Manager</option>
+                    <option value="ADMIN">Administrator</option>
+                </select>
+                <br>
+
+            <!--Delete Button-->
+                <input id="deleteBtn" type="button" value="Delete">
+
+
+                </fieldset>
+            </form>
+        </div>
+        
+        <!--Logout Button-->
+        <div>
+            <button id="logoutBtn" type="button">Logout</button>
+        </div>
+
+    </body>
+
+</html>
