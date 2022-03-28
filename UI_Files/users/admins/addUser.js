@@ -1,5 +1,8 @@
-const thisURL = window.location.href;
-const adminURL = 'adminPage.html';
+
+const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
+const servletURL = 'users';                 // <-- Servlet whose methods should be used
+
+const adminURL = 'adminPage.html';          // Admin home page
 
 // Create Button
 let signUpBtn = document.getElementById('signUpBtn');
@@ -22,20 +25,41 @@ async function signUpFunction()
         role_ID: document.getElementById('role').value
     }
 
-    // POST User object to create user in backend
-    let response = await fetch(thisURL, 
+    // Check properties of user object, ensure it has values
+    let isValid = Object.values(userObj).every(value => 
     {
-        method:'POST',  // POST HTTP method
-        headers:{"Content-type":"application/json"},    // Indicate JSON object
-        body: JSON.stringify(userObj)   // Convert to JSON to send
-    });
+        if (!value)
+            return false;
+        else
+            return true;
+    })
 
-
-    // User was created successfully
-    if (response.status == 204) 
+    // User object is a valid object
+    if (isValid)
     {
-        // Switch page
-        window.location.href = adminURL;
+        // POST User object to create user in backend
+        let response = await fetch(`${fetchURL + servletURL}`, 
+        {
+            method:'POST',  // POST HTTP method
+            headers:{"Content-type":"application/json"},    // Indicate JSON object
+            body: JSON.stringify(userObj)   // Convert to JSON to send
+        });
+    
+    
+        // User was created successfully
+        if (response.status == 204) 
+        {
+            // Switch page
+            window.location.href = adminURL;
+        }
+        else
+        {
+            alert("Something went wrong while Adding User");
+        }
+    }
+    else
+    {
+        alert("Missing a field");
     }
 }
 
