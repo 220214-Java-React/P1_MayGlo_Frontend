@@ -4,6 +4,15 @@ const indexPage = 'http://127.0.0.1:5500/UI_Files/index.html';
 const thisURL = window.location.href;
 const adminURL = 'admins/adminPage.html';       // Page for admins
 
+
+const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
+const servletURL = 'login.html';            // <-- Servlet whose methods should be used
+
+// Constants for the dropdown selection
+const EMP = "0";
+const MANAGER = "1";
+const ADMIN = "2";
+
 // Login Button
 let loginBtn = document.getElementById('loginBtn');
 loginBtn.addEventListener('click', loginFunction);
@@ -30,13 +39,13 @@ async function loginFunction()
     if (userObj.username && userObj.password)
     {
         // POST User object to validate credentials
-        let response = await fetch(thisURL, 
+        let response = await fetch(`${fetchURL + servletURL}`, 
             {
                 method:'POST',  // POST HTTP method
                 headers:{"Content-type":"application/json"},    // Indicate JSON object
                 body: JSON.stringify(userObj)   // Convert to JSON to send
             });
-    
+
         // Based on response, navigate user to correct HTML page
         if (response.status == 204) window.location.href = adminURL;
     }
