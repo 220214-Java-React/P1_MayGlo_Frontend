@@ -1,17 +1,16 @@
-//const testBaseURL = 'http://127.0.0.1:5500/UI_Files/';          // ONLY FOR TESTING
 const indexPage = 'http://127.0.0.1:5500/UI_Files/index.html';
 
-const thisURL = window.location.href;
-const adminURL = 'admins/adminPage.html';       // Page for admins
-
+const EMP_URL = 'employees/employeePage.html';   // Page for employees
+const MAN_URL = 'managers/managerPage.html'; // Page for managers
+const ADMIN_URL = 'admins/adminPage.html';       // Page for admins
 
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'login.html';            // <-- Servlet whose methods should be used
 
 // Constants for the dropdown selection
-const EMP = "0";
-const MANAGER = "1";
-const ADMIN = "2";
+const EMP_STATUS = 201;
+const MANAGER_STATUS = 202;
+const ADMIN_STATUS = 203;
 
 // Login Button
 let loginBtn = document.getElementById('loginBtn');
@@ -46,10 +45,27 @@ async function loginFunction()
                 body: JSON.stringify(userObj)   // Convert to JSON to send
             })
 
-        console.log(response.status);
-
         // Based on response, navigate user to correct HTML page
         //if (response.status == 204) window.location.href = adminURL;
+
+        console.log(response.status);
+
+        switch (response.status)
+        {
+            case EMP_STATUS:
+                window.location.href = EMP_URL;     // Switch to employee page
+                break;
+
+            case MANAGER_STATUS:
+                window.location.href = MAN_URL;     // Switch to manager page
+                break;
+
+            case ADMIN_STATUS:
+                window.location.href = ADMIN_URL;   // Switch to admin page
+                break;
+            default:
+                alert("User was not found");    // User couldn't be found
+        }
     }
     else
     {
