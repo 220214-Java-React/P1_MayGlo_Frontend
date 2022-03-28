@@ -1,6 +1,7 @@
 # IntelliJ Configurations
 .idea
 *.iml
+*.vs
 
 # Output
 build
