@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- script for this file -->
+        <script src="newReimbursement.js" defer></script>
+   </head>
+
+    <body>
+        <!--New Reimbursement Page
+            - (Separate Page?) New Reimbursement: (Contains different fields)
+                > Fill out necessary fields:
+                    ► Amount (number)
+                    ► Description (textarea)
+                    ► Receipt (NOT IMPLEMENTED)
+                    ► Payment (NOT IMPLEMENTED)
+                    ► Author (Autofill? or Not Include?)
+                    ► Status (Autofill? or Not Include?)
+                    ► Type (dropdown)
+        -->
+        <div>
+            <fieldset>
+                <legend>Submit a Reimbursement</legend>
+
+                <!--Amount-->
+                <label for="amount">Amount:</label>
+                <input id="amount" type="text" name="amount">
+                <br>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" maxlength="100"></textarea>
+                <br>
+
+                <select id="type" name="type_ID">
+                    <option value="0">Lodging</option>
+                    <option value="1">Travel</option>
+                    <option value="2">Food</option>
+                    <option value="3">Other</option>
+                </select>
+                <br>
+
+                <!--Submit Button-->
+                <button id="submitBtn" type="button">Submit</button>
+
+                <!--Cancel Button-->
+                <button id="cancelBtn" type="button">Cancel</button>
+
+            </fieldset>
+        </div>
+
+    </body>
+
+</html>
