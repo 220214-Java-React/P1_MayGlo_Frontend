@@ -72,7 +72,13 @@ async function signUpFunction()
                 case ADMIN:     // Admins
                     window.location.href = adminURL;
                     break;
+                default:
+                    alert("Could Not Sign Up");
             }
+        }
+        else
+        {
+            alert("Something went wrong during Sign Up");
         }
     }
     else
