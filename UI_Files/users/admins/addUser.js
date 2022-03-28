@@ -59,7 +59,7 @@ async function signUpFunction()
     }
     else
     {
-        alert("Missing a field");
+        alert("Missing a field");       // Missing something
     }
 }
 
