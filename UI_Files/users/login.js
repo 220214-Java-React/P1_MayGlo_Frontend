@@ -39,14 +39,14 @@ async function loginFunction()
     if (userObj.username && userObj.password)
     {
         // POST User object to validate credentials
-        fetch(`${fetchURL + servletURL}`, 
+        let response = await fetch(`${fetchURL + servletURL}`, 
             {
                 method:'POST',  // POST HTTP method
                 headers:{"Content-Type":"application/json"},    // Indicate JSON object
                 body: JSON.stringify(userObj)   // Convert to JSON to send
             })
-            .then(response => console.log(response.body))
-            .then(data => console.log(data));
+
+        console.log(response.status);
 
         // Based on response, navigate user to correct HTML page
         //if (response.status == 204) window.location.href = adminURL;
