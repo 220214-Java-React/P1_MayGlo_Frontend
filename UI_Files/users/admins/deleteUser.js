@@ -52,8 +52,8 @@ async function searchUser()
             method:'GET',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
         })
-        .then(response => response.json()
-        .then(data => showValues(data)));
+        .then(response => response.json())
+        .then(data => showValues(data));
     }
 }
 
