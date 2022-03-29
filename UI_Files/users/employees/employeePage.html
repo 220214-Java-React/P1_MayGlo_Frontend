@@ -41,13 +41,21 @@
             <fieldset>
                 <legend>List of Reimbursements</legend>
 
-                <!-- IDEAS TO CONSIDER-->
-                <!-- ↑ Dynamic Appends to populate the page -->
-                <!-- ↑ Dropdown with dynamic population -->
-                <!-- ↑ A dynamic table -->
-                <p><a href="">Reimbursement #1</a></p>
-                <p><a href="">Reimbursement #2</a></p>
-                <p><a href="">Reimbursement #3</a></p>
+                <!--Table, instead of listing-->
+                <table id="reimbTable">
+                    <tr>
+                        <th class="reimbHeader">ID</th>
+                        <th class="reimbHeader">Amount</th>
+                        <th class="reimbHeader">Submitted</th>
+                        <th class="reimbHeader">Type</th>
+                        <th class="reimbHeader">Status</th>
+                    </tr>
+                    <tr class="reimbRow">
+                        <td class="reimbCell"></td>
+                        <!--A Reimbursement's info-->
+                    </tr>
+                </table>
+                
             </fieldset>
         </div>
 
