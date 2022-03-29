@@ -16,8 +16,8 @@ window.onload = getReimbursements;  // When the window loads, show reimbursement
 
 async function getReimbursements()
 {
-    // Get the reimbursements
-    fetch(`${fetchURL + servletURL}`,
+    // Get the reimbursements using loggedUser's ID
+    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser')}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}

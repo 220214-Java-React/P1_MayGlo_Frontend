@@ -8,9 +8,9 @@ const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'login.html';            // <-- Servlet whose methods should be used
 
 // Constants for the dropdown selection
-const EMP_STATUS = 201;
-const MANAGER_STATUS = 202;
-const ADMIN_STATUS = 203;
+const EMP = 0;
+const MAN = 1;
+const ADMIN = 2;
 
 // Login Button
 let loginBtn = document.getElementById('loginBtn');
@@ -38,33 +38,33 @@ async function loginFunction()
     if (userObj.username && userObj.password)
     {
         // POST User object to validate credentials
-        let response = await fetch(`${fetchURL + servletURL}`, 
-            {
-                method:'POST',  // POST HTTP method
-                headers:{"Content-Type":"application/json"},    // Indicate JSON object
-                body: JSON.stringify(userObj)   // Convert to JSON to send
-            })
-
-        // Based on response, navigate user to correct HTML page
-        //if (response.status == 204) window.location.href = adminURL;
-
-        console.log(response.status);
-
-        switch (response.status)
+        let data = await fetch(`${fetchURL + servletURL}`, 
         {
-            case EMP_STATUS:
+            method:'POST',  // POST HTTP method
+            headers:{"Content-Type":"application/json"},    // Indicate JSON object
+            body: JSON.stringify(userObj)   // Convert to JSON to send
+        }).then(response => response.json());
+
+        console.log(data);
+
+        // Get ID and Role from returned data
+        let {id, role_ID} = data;
+
+        localStorage.setItem('loggedUser', id);
+
+        switch(role_ID)
+        {
+            case EMP:
                 window.location.href = EMP_URL;     // Switch to employee page
                 break;
 
-            case MANAGER_STATUS:
+            case MAN:
                 window.location.href = MAN_URL;     // Switch to manager page
                 break;
 
-            case ADMIN_STATUS:
+            case ADMIN:
                 window.location.href = ADMIN_URL;   // Switch to admin page
                 break;
-            default:
-                alert("User was not found");    // User couldn't be found
         }
     }
     else
