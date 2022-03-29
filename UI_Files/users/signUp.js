@@ -8,12 +8,12 @@ const adminURL = 'admins/adminPage.html';          // Page for admins
 
 
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'users';                // <-- Servlet whose methods should be used
+const servletURL = 'users/';                // <-- Servlet whose methods should be used
 
 // Constants for the dropdown selection
-const EMP = "0";
-const MANAGER = "1";
-const ADMIN = "2";
+const EMP = 0;
+const MANAGER = 1;
+const ADMIN = 2;
 
 // Sign Up Button
 let signUpBtn = document.getElementById('signUpBtn');
@@ -55,13 +55,27 @@ async function signUpFunction()
             headers:{"Content-type":"application/json"},    // Indicate JSON object
             body: JSON.stringify(userObj)   // Convert to JSON to send
         });
-    
+
+
+
+        let data = await fetch(`${fetchURL + servletURL + '?username=' + userObj.username}`,
+        {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(resp => resp.json());
+
+        console.log(data);
+
+        let {id, role_ID} = data;   // Get ID and Role from returned data
+
+        localStorage.setItem('loggedUser', id);     // Store user ID
     
         // User was created successfully
-        if (response.status == 204) 
+        if (id) 
         {
             // Switch page
-            switch(userObj.role_ID)
+            switch(role_ID)
             {
                 case EMP:       // Employees
                     window.location.href = employeeURL;
