@@ -43,6 +43,7 @@
                 Given name
                 Surname
                 Role
+
                 -->
                 <!--Username Field-->
                 <label for="username">Enter a new username: </label>
@@ -69,12 +70,17 @@
                 <input id="surname" type="text" name="surname" placeholder="Doe" required>
                 <br>
 
+            <!--is_Active Field-->
+                <label for="is_Active">Account Active: </label>
+                <input id="is_Active" type="checkbox" name="is_Active" required>
+                <br>
+
             <!--Role_ID Field-->
                 <label for="role">Select the role: </label>
                 <select id="role" name="roles">
-                    <option value="EMPLOYEE">Employee</option>
-                    <option value="MANAGER">Financial Manager</option>
-                    <option value="ADMIN">Administrator</option>
+                    <option value=0>Employee</option>
+                    <option value=1>Financial Manager</option>
+                    <option value=2>Administrator</option>
                 </select>
                 <br>
 
