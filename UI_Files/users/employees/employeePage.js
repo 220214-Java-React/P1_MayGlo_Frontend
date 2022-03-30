@@ -47,9 +47,14 @@ function createRow(reimbursementItem)
     // Create each cell for this row --
 
     // ID column
-    let reimbID = document.createElement("th");
+    let reimbView = document.createElement("th");
+    reimbView.className = "reimbCell";
+    reimbView.scope = "row";
+    reimbView.innerHTML = "<a href=''>View</a>";
+
+    // ID column
+    let reimbID = document.createElement("td");
     reimbID.className = "reimbCell";
-    reimbID.scope = "row";
     reimbID.innerText = reimb_ID;
 
     // Amount column
@@ -73,6 +78,7 @@ function createRow(reimbursementItem)
     reimbStatus.innerText = convertStatus(status_ID);
 
     // Bind HTML elements to the row
+    reimbRow.appendChild(reimbView);
     reimbRow.appendChild(reimbID);
     reimbRow.appendChild(reimbAmt);
     reimbRow.appendChild(reimbSubmit);
