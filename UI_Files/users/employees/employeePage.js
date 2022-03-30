@@ -12,6 +12,14 @@ newReimbBtn.addEventListener('click', newReimbursement);
 let logoutBtn = document.getElementById('logoutBtn');
 logoutBtn.addEventListener('click', logOutFunction);
 
+// Reimbursement TYPE filter
+let typeDrop = document.getElementById('type_ID');
+typeDrop.addEventListener('change', filterType);
+
+// Reimbursement TYPE filter
+let statusDrop = document.getElementById('status_ID');
+statusDrop.addEventListener('change', filterStatus);
+
 window.onload = getReimbursements;  // When the window loads, show reimbursements
 
 async function getReimbursements()
@@ -46,8 +54,8 @@ function createRow(reimbursementItem)
 
     // Create each cell for this row --
 
-    // ID column
-    let reimbView = document.createElement("th");
+    // View link
+    let reimbView = document.createElement("td");
     reimbView.className = "reimbCell";
     reimbView.scope = "row";
     reimbView.innerHTML = "<a href=''>View</a>";
@@ -88,6 +96,49 @@ function createRow(reimbursementItem)
     // Return the row
     return reimbRow;
 }
+
+function filterType() {
+    // Declare variables
+    var filter, table, tr, td, i, txtValue;
+    filter = typeDrop.value;
+    table = document.getElementById("reimbTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4];
+        if (td) {
+            txtValue = td.innerText;
+            if (txtValue == convertType(parseInt(filter))) {
+            tr[i].style.display = "";
+            } else {
+            tr[i].style.display = "none";
+            }
+        }
+    }
+  }
+
+  function filterStatus() {
+    // Declare variables
+    var filter, table, tr, td, i, txtValue;
+    filter = statusDrop.value;
+    table = document.getElementById("reimbTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4];
+        if (td) {
+            txtValue = td.innerText;
+            if (txtValue == convertType(parseInt(filter))) {
+            tr[i].style.display = "";
+            } else {
+            tr[i].style.display = "none";
+            }
+        }
+    }
+  }
+
 
 // Converts Type ID
 function convertType(ID)
