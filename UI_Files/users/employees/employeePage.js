@@ -17,7 +17,13 @@ function newReimbursement()
 }
 
 // Function to log a user out
-function logOutFunction()
+async function logOutFunction()
 {
-    window.location.href = homeURL;
+    // DEBUG: Log out using the LoginController's get method + a logout param with any value
+    let response = await fetch(`${fetchURL + "login.html?logout=1"}`)
+        .then(response => response.text())
+        .then(function (text) {
+            console.log(text);
+            window.location.href = "/index.html";
+        });
 }
