@@ -1,5 +1,5 @@
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'reimbursements';        // <-- Servlet whose methods should be used
+const servletURL = 'reimbursements/';        // <-- Servlet whose methods should be used
 
 const employeeURL = 'employeePage.html';    // Employee home page
 
@@ -34,7 +34,7 @@ async function submitReimbursement()
     if (isValid)
     {
         // POST Reimbursement object to create it in backend
-        let response = await fetch(`${fetchURL + servletURL}`, 
+        let response = await fetch(`${fetchURL + servletURL + "?userID=" + localStorage.getItem('loggedUser')}`, 
         {
             method:'POST',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
