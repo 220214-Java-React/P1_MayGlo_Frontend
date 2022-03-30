@@ -234,7 +234,7 @@ function newReimbursement()
 }
 
 // Function to log a user out
-async function logOutFunction()
+function logOutFunction()
 {
     window.localStorage.clear();
     window.location.href = "/index.html";
