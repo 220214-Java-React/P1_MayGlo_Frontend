@@ -1,6 +1,10 @@
 const thisURL = window.location.href;
 const adminURL = 'adminPage.html';
 
+const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
+const servletURL = 'users/';                // <-- Servlet whose methods should be used
+
+
 // Constants for the dropdown selection
 const EMP = "EMPLOYEE";
 const MANAGER = "MANAGER";
@@ -20,6 +24,20 @@ deleteBtn.addEventListener('click', deleteUser);
 let cancelBtn = document.getElementById('cancelBtn');
 cancelBtn.addEventListener('click', cancelCreate);
 
+// Credentials to show for the user found
+let userFound =
+{
+    // Get each element on HTML page
+    id : 0, // <-- For deletion
+    u_name : document.getElementById("username"),
+    p_word : document.getElementById("password"),
+    email : document.getElementById("email"),
+    given_name : document.getElementById("given_name"),
+    surname : document.getElementById("surname"),
+    role_ID : document.getElementById("role")
+};
+
+// Function to handle searching for a user in the backend
 async function searchUser()
 {
     // Username to search for
@@ -29,22 +47,59 @@ async function searchUser()
     if (searchName)
     {
         // Search in backend
-        await fetch(thisURL, 
-            {
-                method:'POST',  // POST HTTP method
-                headers:{"Content-type":"application/json"},    // Indicate JSON object
-                body: JSON.stringify(searchName)
-            })
-    
+        let data = await fetch(`${fetchURL + servletURL + '?username=' + searchName}`,
+        {
+            method:'GET',  // POST HTTP method
+            headers:{"Content-type":"application/json"},    // Indicate JSON object
+        })
+        .then(response => response.json())
+        .then(data => showValues(data));
+    }
+}
+
+// Values to show on HTML page
+function showValues(data)
+{
+    console.log(data);
+
+    // Data needed:
+    // username
+    // password
+    // email
+    // given_name
+    // surname
+    // role_ID
+    // Set value for each HTML element
+    if (data)
+    {
         // If a user is found, un-hide hidden form
         document.getElementById('credentials').removeAttribute("hidden");
+        
+        userFound.id = data.id;
+        userFound.u_name.value = data.username;
+        userFound.p_word.value = data.password;
+        userFound.email.value = data.email;
+        userFound.given_name.value = data.given_name;
+        userFound.surname.value = data.surname;
+        userFound.role_ID.value = data.role_ID;
     }
 }
 
 
-function deleteUser()
+async function deleteUser()
 {
-    console.log("Button Works");
+    // Fetch request to delete a User based on ID
+    let response = await fetch(`${fetchURL + servletURL + '?id=' + userFound.id}`,
+    {
+        method:'DELETE',
+        headers: {'Content-Type': 'application/json'},
+    });
+
+    // If success
+    if (response.status == 200)
+    {
+        window.location.href = adminURL;     // Goes back to admin page
+    }
 }
 
 
