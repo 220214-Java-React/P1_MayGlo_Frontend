@@ -47,6 +47,12 @@ function createRow(reimbursementItem)
     // Create each cell for this row --
 
     // ID column
+    let reimbView = document.createElement("th");
+    reimbView.className = "reimbCell";
+    reimbView.scope = "row";
+    reimbView.innerHTML = "<a href=''>View</a>";
+
+    // ID column
     let reimbID = document.createElement("td");
     reimbID.className = "reimbCell";
     reimbID.innerText = reimb_ID;
@@ -72,6 +78,7 @@ function createRow(reimbursementItem)
     reimbStatus.innerText = convertStatus(status_ID);
 
     // Bind HTML elements to the row
+    reimbRow.appendChild(reimbView);
     reimbRow.appendChild(reimbID);
     reimbRow.appendChild(reimbAmt);
     reimbRow.appendChild(reimbSubmit);
@@ -121,11 +128,6 @@ function newReimbursement()
 // Function to log a user out
 async function logOutFunction()
 {
-    // DEBUG: Log out using the LoginController's get method + a logout param with any value
-    let response = await fetch(`${fetchURL + "login.html?logout=1"}`)
-        .then(response => response.text())
-        .then(function (text) {
-            console.log(text);
-            window.location.href = "/index.html";
-        });
+    window.localStorage.clear();
+    window.location.href = "/index.html";
 }
