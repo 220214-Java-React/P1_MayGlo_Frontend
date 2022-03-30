@@ -47,8 +47,9 @@ function createRow(reimbursementItem)
     // Create each cell for this row --
 
     // ID column
-    let reimbID = document.createElement("td");
+    let reimbID = document.createElement("th");
     reimbID.className = "reimbCell";
+    reimbID.scope = "row";
     reimbID.innerText = reimb_ID;
 
     // Amount column
@@ -121,11 +122,7 @@ function newReimbursement()
 // Function to log a user out
 async function logOutFunction()
 {
-    // DEBUG: Log out using the LoginController's get method + a logout param with any value
-    let response = await fetch(`${fetchURL + "login.html?logout=1"}`)
-        .then(response => response.text())
-        .then(function (text) {
-            console.log(text);
-            window.location.href = "/index.html";
-        });
+    window.localStorage.clear();
+    console.log(text);
+    window.location.href = "/index.html";
 }

@@ -59,25 +59,6 @@
     <div class="container">
         <div class="row align-items-center">
 
-
-                <!--Table, instead of listing-->
-                <table id="reimbTable">
-                    <tr>
-                        <th class="reimbHeader">ID</th>
-                        <th class="reimbHeader">Amount</th>
-                        <th class="reimbHeader">Submitted</th>
-                        <th class="reimbHeader">Status</th>
-                        <th class="reimbHeader">Type</th>
-                    </tr>
-                    <tr class="reimbRow">
-                        <td class="reimbCell"></td>
-                        <!--A Reimbursement's info-->
-                    </tr>
-                </table>
-                
-            </fieldset>
-        </div>
-
             <h1 class="display-1 text-center">Welcome, {firstName}</h1>
             <p class="text-center"><em>Click "View" for more details about a reimbursement.</em></p>
 
@@ -114,40 +95,15 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">View</th>
-                            <th scope="col">#</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Submitted</th>
+                            <th scope="col" class="reimbHeader">ID</th>
+                            <th scope="col" class="reimbHeader">Amount</th>
+                            <th scope="col" class="reimbHeader">Submitted</th>
+                            <th scope="col" class="reimbHeader">Status</th>
+                            <th scope="col" class="reimbHeader">Type</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Every TR contains one Reimbursement record -->
-                        <tr>
-                            <th scope="row"><a href="#">View</a></td>
-                            <td>5</th>
-                            <td>$1,537.67</td>
-                            <td>PENDING</td>
-                            <td>LODGING</td>
-                            <td>12-21-2021</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><a href="#">View</a></td>
-                            <td>12</th>
-                            <td>$252.15</td>
-                            <td>APPROVED</td>
-                            <td>TRAVEL</td>
-                            <td>02-02-2022</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><a href="#">View</a></td>
-                            <td>33</th>
-                            <td>$50.51</td>
-                            <td>DENIED</td>
-                            <td>FOOD</td>
-                            <td>03-13-2022</td>
-                        </tr>
+                    <tbody id="reimbTable">
+                            <!--A Reimbursement's info-->
                     </tbody>
                 </table>
             </div>
