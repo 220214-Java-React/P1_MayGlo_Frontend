@@ -123,6 +123,5 @@ function newReimbursement()
 async function logOutFunction()
 {
     window.localStorage.clear();
-    console.log(text);
     window.location.href = "/index.html";
 }
