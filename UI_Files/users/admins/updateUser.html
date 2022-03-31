@@ -93,88 +93,28 @@
                                 <input class="form-control" id="surname" type="text" name="surname" placeholder="Doe"
                                     required>
                             </div>
+                            <div class="mb-3">
+                                <!--Active Field-->
+                                <input type="checkbox" id="is_Active" name="is_Active">
+                                <label for="is_Active" class="form-label">Account is active:</label>
+                            </div>
                             <div class="mb-3 text-center">
                                 <!--Role_ID Field-->
-                                <label class="form-label" for="role">Select a role: </label>
                                 <select id="role" name="roles">
-                                    <option value="EMPLOYEE">Employee</option>
-                                    <option value="MANAGER">Financial Manager</option>
-                                    <option value="ADMIN">Administrator</option>
+                                    <option value="0">Employee</option>
+                                    <option value="1">Financial Manager</option>
+                                    <option value="2">Administrator</option>
                                 </select>
                             </div>
                             <div class="mb-3 text-center">
                                 <!--Update Button-->
                                 <input class="btn btn-primary" id="updateBtn" type="button" value="Update">
                             </div>
-
                         </fieldset>
                     </form>
                 </div>
-
             </div>
         </div>
-
-        <div>
-            <form id="credentials">
-                <fieldset>
-                    <legend>Select User</legend>
-    
-                <!-- User Objects need:
-                Username
-                Password
-                Email
-                Given name
-                Surname
-                Role
-
-                -->
-                <!--Username Field-->
-                <label for="username">Enter a new username: </label>
-                <input id="username" type="text" name="username" placeholder="username" required>
-                <br>
-
-            <!--Password Field-->
-                <label for="password">Enter a new password: </label>
-                <input id="password" type="password" name="password" placeholder="password" required>
-                <br>
-
-            <!--Email Field-->
-                <label for="email">Enter a new email: </label>
-                <input id="email" type="email" name="email" placeholder="123@email.com" required>
-                <br>
-
-            <!--Given Name Field-->
-                <label for="given_name">Enter a first name: </label>
-                <input id="given_name" type="text" name="given_name" placeholder="John" required>
-                <br>
-
-            <!--Surname Field-->
-                <label for="surname">Enter a last name: </label>
-                <input id="surname" type="text" name="surname" placeholder="Doe" required>
-                <br>
-
-            <!--is_Active Field-->
-                <label for="is_Active">Account Active: </label>
-                <input id="is_Active" type="checkbox" name="is_Active" required>
-                <br>
-
-            <!--Role_ID Field-->
-                <label for="role">Select the role: </label>
-                <select id="role" name="roles">
-                    <option value=0>Employee</option>
-                    <option value=1>Financial Manager</option>
-                    <option value=2>Administrator</option>
-                </select>
-                <br>
-
-            <!--Update Button-->
-                <input id="updateBtn" type="button" value="Update">
-
-
-                </fieldset>
-            </form>
-        </div>
-
-    </body>
+</body>
 
 </html>

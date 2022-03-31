@@ -8,23 +8,7 @@ logoutBtn.addEventListener('click', logOutFunction);
 // Function to log a user out
 function logOutFunction()
 {
-    window.location.href = homeURL;
+    window.localStorage.clear();
+    window.location.href = "/index.html";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+s

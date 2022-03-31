@@ -43,6 +43,9 @@ async function searchUser()
     // Username to search for
     let searchName = document.getElementById('searchUsername').value;
 
+        // re-hide the form if it's already open
+        document.getElementById('credentials').hidden = true;
+
     // If user enetered a name
     if (searchName)
     {
