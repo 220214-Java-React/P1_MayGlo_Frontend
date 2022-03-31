@@ -70,6 +70,7 @@ async function signUpFunction()
         let {id, role_ID} = data;   // Get ID and Role from returned data
 
         localStorage.setItem('loggedUser', id);     // Store user ID
+        localStorage.setItem('role_ID', role_ID);
     
         // User was created successfully
         if (id) 

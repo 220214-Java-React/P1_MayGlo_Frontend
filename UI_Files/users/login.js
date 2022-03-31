@@ -51,6 +51,7 @@ async function loginFunction()
         let {id, role_ID} = data;
 
         localStorage.setItem('loggedUser', id);
+        localStorage.setItem('role_ID', role_ID);
 
         switch(role_ID)
         {
