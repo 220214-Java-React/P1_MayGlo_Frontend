@@ -4,7 +4,6 @@ const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'reimbursements';        // <-- Servlet whose methods should be used
 
-
 // Logout Button
 let logoutBtn = document.getElementById('logoutBtn');
 logoutBtn.addEventListener('click', logOutFunction);
@@ -16,11 +15,11 @@ function logOutFunction()
 }
 
 // When window loads
-window.onload = getRoleTest;
+window.onload = showReimbursements;
 
-async function getRoleTest()
+// Managers can see all reimbursements and approve/deny them = get all reimbursements
+async function showReimbursements()
 {
-    
     await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'GET',
@@ -30,8 +29,7 @@ async function getRoleTest()
     .then(data => constructRows(data));
 }
 
-
-
+// Create the rows for the table after getting needed data
 function constructRows(arrayReimb)
 {
     // Get the element containing the table of reimbursements
@@ -39,7 +37,7 @@ function constructRows(arrayReimb)
 
     console.log(arrayReimb);
     // Create a row for each reimbursement, append it to the table
-    arrayReimb.forEach(element => listArea.appendChild(createRow(element)))
+    arrayReimb.forEach(element => listArea.appendChild(createRow(element)));
 }
 
 // Creates a row in the reimbursement table for the employee
@@ -103,21 +101,61 @@ function createRow(reimbursementItem)
     let reimbType = document.createElement("td");
     reimbType.className = "reimbCell";
     reimbType.innerText = convertType(type_ID);
+    
+    // Approve Button
+    const approveBtn = document.createElement('button');
+    approveBtn.setAttribute('id', 'approveBtn');
+    approveBtn.setAttribute('type', 'button');
+    approveBtn.setAttribute('name', reimb_ID);      // tie reimb_ID to button
+    approveBtn.innerText = 'APPROVE';
+    approveBtn.addEventListener('click', approveReimbursement);
+    
+    // Deny Button
+    const denyBtn = document.createElement('button');
+    denyBtn.setAttribute('id', 'denyBtn');
+    denyBtn.setAttribute('type', 'button');
+    denyBtn.setAttribute('name', reimb_ID);         // tie reimb_ID to button
+    denyBtn.innerText = 'DENY';
+    denyBtn.addEventListener('click', denyReimbursement);
 
     // Bind HTML elements to the row
     //reimbRow.appendChild(reimbView);  ---
-    reimbRow.appendChild(reimbID);
-    reimbRow.appendChild(reimbAmt);
-    reimbRow.appendChild(reimbTimeSubmit);
-    reimbRow.appendChild(reimbTimeResolved);
-    reimbRow.appendChild(reimbDesc);
-    reimbRow.appendChild(reimbAuthor);
-    reimbRow.appendChild(reimbResolver);
-    reimbRow.appendChild(reimbStatus);
-    reimbRow.appendChild(reimbType);
+    reimbRow.appendChild(reimbID);              // Reimbursement ID
+    reimbRow.appendChild(reimbAmt);             // Amount
+    reimbRow.appendChild(reimbTimeSubmit);      // Time submission
+    reimbRow.appendChild(reimbTimeResolved);    // Time resolution
+    reimbRow.appendChild(reimbDesc);            // Description
+    reimbRow.appendChild(reimbAuthor);          // Author
+    reimbRow.appendChild(reimbResolver);        // Resolver
+    reimbRow.appendChild(reimbStatus);          // Status
+    reimbRow.appendChild(reimbType);            // Type
+    reimbRow.appendChild(approveBtn);           // Approve Button
+    reimbRow.appendChild(denyBtn);              // Deny Button
 
     // Return the row
     return reimbRow;
+}
+
+// Function for when approve button is clicked
+async function approveReimbursement()
+{
+    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({reimb_ID : this.name, status_ID : 1})
+    }).then(response => console.log(response.status))
+}
+
+// Function for when deny button is clicked
+async function denyReimbursement()
+{
+    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({reimb_ID : this.name, status_ID : 2})
+    }).then(response => console.log(response.status))
 }
 
 // Converts Type ID
@@ -149,16 +187,3 @@ function convertStatus(ID)
             return "Denied";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
