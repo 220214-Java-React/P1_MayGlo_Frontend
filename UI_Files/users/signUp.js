@@ -67,29 +67,12 @@ async function signUpFunction()
 
         console.log(data);
 
-        let {id, role_ID} = data;   // Get ID and Role from returned data
+        let {id} = data;   // Ensure there is a user
 
-        localStorage.setItem('loggedUser', id);     // Store user ID
-        localStorage.setItem('role_ID', role_ID);
-    
         // User was created successfully
         if (id) 
         {
-            // Switch page
-            switch(role_ID)
-            {
-                case EMP:       // Employees
-                    window.location.href = employeeURL;
-                    break;
-                case MANAGER:   // Managers
-                    window.location.href = managerURL;
-                    break;
-                case ADMIN:     // Admins
-                    window.location.href = adminURL;
-                    break;
-                default:
-                    alert("Could Not Sign Up");
-            }
+            goBack();   // Go back home
         }
         else
         {
