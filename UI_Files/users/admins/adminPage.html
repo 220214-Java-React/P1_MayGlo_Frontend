@@ -30,19 +30,11 @@
 
         <div class="container">
             <div class="row align-items-center">
-    
-                
                 <div class="col">
                     <form>
                         <fieldset>
                             <h1 class="display-1 text-center">Welcome, Admin.</h1>
                             <p class="text-center"><em>What would you like to do?</em></p>
-
-                            <div class="mb-3 text-center">
-                                <label class="form-label" for="username">Enter a username: </label>
-                                <input class="form-control" type="text" name="username" placeholder="username">
-                            </div>
-
                             <div class="mb-3 text-center">
                                 <button class="btn btn-primary" id="addUserBtn" type="button">Add User</button>
                                 <button class="btn btn-secondary" id="updateUserBtn" type="button">Update User</button>
@@ -51,8 +43,47 @@
                         </fieldset>
                     </form>
                 </div>
-
             </div>
+            <div class="row align-items-center">       
+                <div class="col">
+                    <h4 class="display-4 text-center">Pending/Inactive Users:</h4>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="userHeader">View</th>
+                                <th scope="col" class="userHeader">ID</th>
+                                <th scope="col" class="userHeader">First Name</th>
+                                <th scope="col" class="userHeader">Last Name</th>
+                                <th scope="col" class="userHeader">Username</th>
+                                <th scope="col" class="userHeader">Email</th>
+                                <th scope="col" class="userHeader">Role</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reimbTable">
+                                <!--A Reimbursement's info-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal fade" id="userViewModal" tabindex="-1" aria-labelledby="userViewModal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Reimbursement info -->
+                        <button type="button" class="btn btn-primary">Approve</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="modal-footer">
+                      <!-- Set this button to actually save changes -->
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
     </body>
 
