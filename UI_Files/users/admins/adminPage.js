@@ -13,7 +13,7 @@ addUserBtn.addEventListener('click', addUser);
 
 // Update User Button
 let updateUserBtn = document.getElementById('updateUserBtn');
-updateUserBtn.addEventListener('click', updateUser);
+updateUserBtn.addEventListener('click', updateUserButton);
 
 // Delete User Button
 let deleteUserBtn = document.getElementById('deleteUserBtn');
@@ -22,6 +22,9 @@ deleteUserBtn.addEventListener('click', deleteUser);
 // Logout Button
 let logoutBtn = document.getElementById('logoutBtn');
 logoutBtn.addEventListener('click', logOutFunction);
+
+let approveBtn = document.getElementById('approveBtn');
+approveBtn.addEventListener('click', approveUser);
 
 window.onload = getPendingUsers;  // When the window loads, show reimbursements
 
@@ -53,7 +56,7 @@ function createRow(reimbursementItem)
     userRow.className = "userRow";                    // Assign class
 
     // Destructure object for needed values
-    let {user_ID, given_name, surname, username, email, role_ID} = reimbursementItem;
+    let {id, given_name, surname, username, email, role_ID} = reimbursementItem;
 
     // Create each cell for this row --
 
@@ -61,12 +64,14 @@ function createRow(reimbursementItem)
     let userView = document.createElement("td");
     userView.className = "userRow";
     userView.scope = "row";
-    userView.innerHTML = '<a href="#" data-bs-toggle="modal" data-bs-target="#userViewModal">View</a>';
+    userView.innerHTML = `<a href="#" data-bs-toggle="modal" data-bs-target="#userViewModal" value=${username} class="viewLink">View</a>`;
+
+    //userView.addEventListener("click", setUserValue(this));
 
     // ID column
     let userID = document.createElement("td");
     userID.className = "userRow";
-    userID.innerText = user_ID;
+    userID.innerText = id;
 
     // FIRST NAME/GIVEN_NAME
     let userFirstName = document.createElement("td");
@@ -102,6 +107,12 @@ function createRow(reimbursementItem)
     userRow.appendChild(userEmail);
     userRow.appendChild(userRole);
 
+    // Adds a passive event listener to the View link after it's been added to the document.
+    let viewLink = userRow.childNodes[0].firstChild;
+    viewLink.addEventListener("click", function() {
+        setUserValue(username);
+    });
+
     // Return the row
     return userRow;
 }
@@ -120,6 +131,53 @@ function convertRole(ID)
     }
 }
 
+async function approveUser()
+{
+    let user = approveBtn.value;
+    console.log("The value of the user to be approve/activated is: " + user);
+    
+        // Search in backend
+        await fetch(`${fetchURL + servletURL + '?username=' + user}`,
+        {
+            method:'GET',  // POST HTTP method
+            headers:{"Content-type":"application/json"},    // Indicate JSON object
+        })
+        .then(response => response.json())
+        .then(data => updateUser(data));
+}
+
+async function updateUser(data)
+{
+    console.log(data);
+    const updatedUser =
+    {
+        username : data.username,
+        password : data.password,
+        email : data.email,
+        given_name : data.given_name,
+        surname : data.surname,
+        is_Active : true,
+        role_ID : data.role_ID
+    }
+
+    console.log(updatedUser);
+    console.log(data.id);
+
+    let response = await fetch(`${fetchURL + servletURL + '?update=' + String(data.id)}`,
+    {
+        method:'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(updatedUser)
+    });
+
+    location.reload(); 
+}
+
+function setUserValue(user) {
+    approveBtn.value = user;
+    console.log("The value of the Approve/Active button is: " + approveBtn.value);
+}
+
 // Function to add a user
 function addUser()
 {
@@ -127,7 +185,7 @@ function addUser()
 }
 
 // Function to update a user
-function updateUser()
+function updateUserButton()
 {
     window.location.href = updateURL;
 }
