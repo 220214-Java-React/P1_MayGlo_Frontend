@@ -50,7 +50,7 @@ function createRow(reimbursementItem)
     reimbRow.className = "reimbRow";                    // Assign class
 
     // Destructure object for needed values
-    let {reimb_ID, amount, timeSubmitted, type_ID, status_ID} = reimbursementItem;
+    let {reimb_ID, amount, timeSubmitted, description, type_ID, status_ID} = reimbursementItem;
 
     // Create each cell for this row --
 
@@ -58,7 +58,7 @@ function createRow(reimbursementItem)
     let reimbView = document.createElement("td");
     reimbView.className = "reimbCell";
     reimbView.scope = "row";
-    reimbView.innerHTML = "<a href=''>View</a>";
+    reimbView.innerHTML = '<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">View</a>';
 
     // ID column
     let reimbID = document.createElement("td");
@@ -75,6 +75,12 @@ function createRow(reimbursementItem)
     reimbSubmit.className = "reimbCell";
     reimbSubmit.innerText = timeSubmitted;
 
+    // Time Submission column
+    let reimbDesc = document.createElement("td");
+    reimbDesc.className = "reimbCell";
+    reimbDesc.innerText = description;
+    
+
     // Type column
     let reimbType = document.createElement("td");
     reimbType.className = "reimbCell";
@@ -90,6 +96,7 @@ function createRow(reimbursementItem)
     reimbRow.appendChild(reimbID);
     reimbRow.appendChild(reimbAmt);
     reimbRow.appendChild(reimbSubmit);
+    reimbRow.appendChild(reimbDesc);
     reimbRow.appendChild(reimbType);
     reimbRow.appendChild(reimbStatus);
 
