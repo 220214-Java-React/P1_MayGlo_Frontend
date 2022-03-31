@@ -48,7 +48,13 @@ async function loginFunction()
         console.log(data);
 
         // Get ID and Role from returned data
-        let {id, role_ID} = data;
+        let {id, role_ID, is_Active} = data;
+
+        if (!is_Active)     // Check if account is active
+        {
+            alert("Account not active.");
+            return;
+        }
 
         localStorage.setItem('loggedUser', id);
         localStorage.setItem('role_ID', role_ID);
