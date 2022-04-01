@@ -14,6 +14,28 @@
     </head>
 
     <body>
+        <style>
+            .btnCustom {
+                background-color: #0d6efd;
+                display: inline-block !important;
+                font-weight: 400 !important;
+                line-height: 1.5 !important;
+                color: #ffffff !important;
+                text-align: center !important;
+                text-decoration: none !important;
+                vertical-align: middle !important;
+                cursor: pointer !important;
+                -webkit-user-select: none !important;
+                -moz-user-select: none !important;
+                user-select: none !important;
+                border: 1px solid transparent !important;
+                padding: 0.375rem 0.75rem !important;
+                font-size: 1rem !important;
+                border-radius: 0.25rem !important;
+                margin: 0.075rem;
+            }
+
+        </style>
         <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 display-1" href="/">MayGlo RMS</a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
@@ -33,57 +55,40 @@
             <div class="row align-items-center">
     
                 <h1 class="display-1 text-center">Welcome, Manager.</h1>
-                <p class="text-center"><em>What would you like to do?</em></p>
+                <p class="text-center"><em>Please click "Pending" to view pending reimbursements.</em></p>
+            </div>
+            <div>
+                <div class="mb-3 text-center">
+                    <!-- Toggle for pending requests -->
+                    <label for="pendingToggle" class="form-check-label">Pending</label>
+                    <input id="pendingToggle" name="pendingToggle" type="checkbox" class="form-check-input" onclick="showReimbursements()"/>
+                </div>
+                
+                <!--Table where reimbursements go-->
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="reimbHeader">ID</th>
+                                <th scope="col" class="reimbHeader">Amount</th>
+                                <th scope="col" class="reimbHeader">Submitted</th>
+                                <th scope="col" class="reimbHeader">Resolved</th>
+                                <th scope="col" class="reimbHeader">Description</th>
+                                <th scope="col" class="reimbHeader">Author</th>
+                                <th scope="col" class="reimbHeader">Resolver</th>
+                                <th scope="col" class="reimbHeader">Status</th>
+                                <th scope="col" class="reimbHeader">Type</th>
+                            </tr>
+                        </thead>
+                        
+                        <!-- Reimbursement data -->
+                        <tbody id="reimbBody">
+                                <!--A Reimbursement's info-->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-
-        <div>
-            <fieldset id="reimbursements">
-                <legend>List of Reimbursements</legend>
-                <!--Need:
-                ID
-                Amount
-                Time Submitted
-                Time Resolved
-                Description
-                Author
-                Resolver
-                Status
-                Type
-                -->
-
-                <!-- Toggle for pending requests -->
-                <label for="pendingToggle">Pending</label>
-                <input id="pendingToggle" name="pendingToggle" type="checkbox" onclick="showReimbursements()"/>
-
-                <!--Table where reimbursements go-->
-                <table id="reimbTable">
-                    <thead>
-                        <tr>
-                            <th class="reimbHeader">ID</th>
-                            <th class="reimbHeader">Amount</th>
-                            <th class="reimbHeader">Submitted</th>
-                            <th class="reimbHeader">Resolved</th>
-                            <th class="reimbHeader">Description</th>
-                            <th class="reimbHeader">Author</th>
-                            <th class="reimbHeader">Resolver</th>
-                            <th class="reimbHeader">Status</th>
-                            <th class="reimbHeader">Type</th>
-                        </tr>
-                    </thead>
-
-                    <!-- Reimbursement data -->
-                    <tbody id="reimbBody">
-                        <tr class="reimbRow">
-                            <td class="reimbCell"></td>
-                            <!--A Reimbursement's info-->
-                        </tr>
-                    </tbody>
-                    
-                </table>
-            </fieldset>
-        </div>
-
     </body>
 
 </html>
