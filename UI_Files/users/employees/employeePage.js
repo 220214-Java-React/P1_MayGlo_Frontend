@@ -20,8 +20,19 @@ typeDrop.addEventListener('change', filterType);
 let statusDrop = document.getElementById('status_ID');
 statusDrop.addEventListener('change', filterStatus);
 
-window.onload = getReimbursements;  // When the window loads, show reimbursements
+// Div to show reimbursement info
+let amountData = document.getElementById('amount');
+let descData = document.getElementById('description');
+let typeData = document.getElementById('typeData');
 
+// Save Changes Button
+let saveBtn = document.getElementById('saveBtn');
+saveBtn.addEventListener('click', saveChanges);
+
+// When the window loads, show reimbursements
+window.onload = getReimbursements;
+
+// Get all reimbursements for this user
 async function getReimbursements()
 {
     // Get the reimbursements using loggedUser's ID
@@ -59,6 +70,10 @@ function createRow(reimbursementItem)
     reimbView.className = "reimbCell";
     reimbView.scope = "row";
     reimbView.innerHTML = '<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">View</a>';
+    reimbView.setAttribute('id', reimbursementItem.reimb_ID);
+    reimbView.addEventListener('click', constructInfo);
+
+    console.log(reimbView);
 
     // ID column
     let reimbID = document.createElement("td");
@@ -75,12 +90,11 @@ function createRow(reimbursementItem)
     reimbSubmit.className = "reimbCell";
     reimbSubmit.innerText = timeSubmitted;
 
-    // Time Submission column
+    // Description column
     let reimbDesc = document.createElement("td");
     reimbDesc.className = "reimbCell";
     reimbDesc.innerText = description;
     
-
     // Type column
     let reimbType = document.createElement("td");
     reimbType.className = "reimbCell";
@@ -102,6 +116,69 @@ function createRow(reimbursementItem)
 
     // Return the row
     return reimbRow;
+}
+
+
+async function constructInfo()
+{
+
+    // Get the reimbursement
+    let info = await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&reimb_ID=' + this.id}`,
+    {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(response => response.json());
+
+    console.log(info.status_ID);
+
+    // Enable/disable info based on status
+    if (info.status_ID != 0)
+    {
+        amountData.disabled = true;
+        descData.disabled = true;
+        typeData.disabled = true;
+        saveBtn.disabled = true;
+    }
+    else
+    {
+        amountData.disabled = false;
+        descData.disabled = false;
+        typeData.disabled = false;
+        saveBtn.disabled = false;
+    }
+
+    // Store reimbursement ID for saving changes
+    localStorage.setItem('reimbViewID', info.reimb_ID);
+
+    // Show data
+    amountData.value = info.amount;
+    descData.value = info.description;
+    typeData.value = info.type_ID;
+}
+
+// Function to save changes to a reimbursement
+async function saveChanges()
+{
+    // Fields to update on the object
+    const reimbObj =
+    {
+        reimb_ID: localStorage.getItem('reimbViewID'),
+        amount: amountData.value,
+        description: descData.value,
+        type_ID: typeData.value
+    }
+
+    // PUT request to update reimbursement
+    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    {
+        method: 'PUT',
+        body: JSON.stringify(reimbObj)
+    })
+    .then(response => console.log(response.status));
+
+    // Refresh page
+    window.location.reload();
 }
 
 function filterType() {
@@ -244,5 +321,5 @@ function newReimbursement()
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = "/index.html";
+    window.location.href = homeURL;
 }
