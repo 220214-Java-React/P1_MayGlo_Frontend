@@ -4,6 +4,7 @@ const EMP_URL = 'employees/employeePage.html';   // Page for employees
 const MAN_URL = 'managers/managerPage.html'; // Page for managers
 const ADMIN_URL = 'admins/adminPage.html';       // Page for admins
 
+// URLs to access API
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'login.html';            // <-- Servlet whose methods should be used
 
@@ -47,7 +48,7 @@ async function loginFunction()
 
         console.log(data);
 
-        // Get ID and Role from returned data
+        // Get ID, Role, and is_Active from returned data
         let {id, role_ID, is_Active} = data;
 
         if (!is_Active)     // Check if account is active
@@ -56,9 +57,13 @@ async function loginFunction()
             return;
         }
 
+        // Store ID of logged in user
         localStorage.setItem('loggedUser', id);
+
+        // Store role of logged in user
         localStorage.setItem('role_ID', role_ID);
 
+        // Navigate based on the role
         switch(role_ID)
         {
             case EMP:

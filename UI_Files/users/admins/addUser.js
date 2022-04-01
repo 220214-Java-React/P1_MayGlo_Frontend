@@ -52,7 +52,7 @@ async function signUpFunction()
             // Switch page
             window.location.href = adminURL;
         }
-        else
+        else    // User was not created correctly
         {
             alert("Something went wrong while Adding User");
         }

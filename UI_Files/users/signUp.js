@@ -6,7 +6,7 @@ const employeeURL = 'employees/employeePage.html';    // Page for employees
 const managerURL = 'managers/managerPage.html';      // Page for managers
 const adminURL = 'admins/adminPage.html';          // Page for admins
 
-
+// URLs to access API
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'users/';                // <-- Servlet whose methods should be used
 
@@ -23,6 +23,7 @@ signUpBtn.addEventListener('click', signUpFunction);
 let backBtn = document.getElementById('backBtn');
 backBtn.addEventListener('click', goBack);
 
+// When the sign up button is pressed
 async function signUpFunction()
 {
     // Create a user with necessary credentials
@@ -56,8 +57,7 @@ async function signUpFunction()
             body: JSON.stringify(userObj)   // Convert to JSON to send
         });
 
-
-
+        // Retrieve data to ensure user was created (not needed?)
         let data = await fetch(`${fetchURL + servletURL + '?username=' + userObj.username}`,
         {
             method: 'GET',
@@ -81,7 +81,7 @@ async function signUpFunction()
     }
     else
     {
-        alert("Missing a field");
+        alert("Missing a field");   // All fields must have a value
     }
 }
 

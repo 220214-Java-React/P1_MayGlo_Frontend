@@ -1,6 +1,7 @@
 //const thisURL = window.location.href;     // Current URL
 const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
 
+// URLs to access API
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'reimbursements';        // <-- Servlet whose methods should be used
 

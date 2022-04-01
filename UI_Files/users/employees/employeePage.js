@@ -1,6 +1,7 @@
 const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
 const newReimbURL = 'newReimbursement.html';
 
+// URLs to access API
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'reimbursements';        // <-- Servlet whose methods should be used
 
@@ -45,6 +46,7 @@ async function getReimbursements()
     .then(data => constructRows(data)); // Create the table
 }
 
+// Create the rows for the table of reimbursements
 function constructRows(arrayReimb)
 {
     // Get the element containing the table of reimbursements
@@ -118,7 +120,7 @@ function createRow(reimbursementItem)
     return reimbRow;
 }
 
-
+// Info to show when viewing a reimbursement
 async function constructInfo()
 {
 
