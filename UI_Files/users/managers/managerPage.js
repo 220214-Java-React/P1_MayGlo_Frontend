@@ -4,6 +4,9 @@ const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'reimbursements';        // <-- Servlet whose methods should be used
 
+// Pending Toggle
+let pendingToggle = document.getElementById('pendingToggle');
+
 // Logout Button
 let logoutBtn = document.getElementById('logoutBtn');
 logoutBtn.addEventListener('click', logOutFunction);
@@ -12,8 +15,11 @@ logoutBtn.addEventListener('click', logOutFunction);
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = "/index.html";
+    window.location.href = homeURL;
 }
+
+// Get the element containing the table of reimbursements
+const reimbBody = document.getElementById("reimbBody");
 
 // When window loads
 window.onload = showReimbursements;
@@ -21,7 +27,12 @@ window.onload = showReimbursements;
 // Managers can see all reimbursements and approve/deny them = get all reimbursements
 async function showReimbursements()
 {
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    reimbBody.innerHTML = "";     // Clear body data
+
+    let sendPending = pendingToggle.checked == true ? 1 : 0;
+
+    console.log(sendPending);
+    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&pending=' + sendPending}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -33,26 +44,24 @@ async function showReimbursements()
 // Create the rows for the table after getting needed data
 function constructRows(arrayReimb)
 {
-    // Get the element containing the table of reimbursements
-    const listArea = document.getElementById("reimbTable");
-
     console.log(arrayReimb);
+    
     // Create a row for each reimbursement, append it to the table
-    arrayReimb.forEach(element => listArea.appendChild(createRow(element)));
+    arrayReimb.forEach(element => reimbBody.appendChild(createRow(element)));
 }
 
 // Creates a row in the reimbursement table for the employee
 function createRow(reimbursementItem)
-{
-    const reimbRow = document.createElement("tr");      // Current row
-    reimbRow.className = "reimbRow";                    // Assign class
+{      
+    // Current row element
+    const reimbRow = document.createElement("tr");
 
-    // Destructure object for needed values
-    let {reimb_ID, amount, timeSubmitted, type_ID, status_ID} = reimbursementItem;
+    // Assign class to new element
+    reimbRow.className = "reimbRow";                    
 
     // Create each cell for this row --
 
-    // ID column
+    // View column
     let reimbView = document.createElement("th");
     reimbView.className = "reimbCell";
     reimbView.scope = "row";
@@ -61,17 +70,17 @@ function createRow(reimbursementItem)
     // ID column
     let reimbID = document.createElement("td");
     reimbID.className = "reimbCell";
-    reimbID.innerText = reimb_ID;
+    reimbID.innerText = reimbursementItem.reimb_ID;
 
     // Amount column
     let reimbAmt = document.createElement("td");
     reimbAmt.className = "reimbCell";
-    reimbAmt.innerText = amount;
+    reimbAmt.innerText = reimbursementItem.amount;
 
     // Time Submission column
     let reimbTimeSubmit = document.createElement("td");
     reimbTimeSubmit.className = "reimbCell";
-    reimbTimeSubmit.innerText = timeSubmitted;  //  -------
+    reimbTimeSubmit.innerText = reimbursementItem.timeSubmitted;
 
     // Time Resolved column
     let reimbTimeResolved = document.createElement("td");
@@ -96,18 +105,18 @@ function createRow(reimbursementItem)
     // Status column
     let reimbStatus = document.createElement("td");
     reimbStatus.className = "reimbCell";
-    reimbStatus.innerText = convertStatus(status_ID);
+    reimbStatus.innerText = convertStatus(reimbursementItem.status_ID);
 
     // Type column
     let reimbType = document.createElement("td");
     reimbType.className = "reimbCell";
-    reimbType.innerText = convertType(type_ID);
+    reimbType.innerText = convertType(reimbursementItem.type_ID);
     
     // Approve Button
     const approveBtn = document.createElement('button');
     approveBtn.setAttribute('id', 'approveBtn');
     approveBtn.setAttribute('type', 'button');
-    approveBtn.setAttribute('name', reimb_ID);      // tie reimb_ID to button
+    approveBtn.setAttribute('name', reimbursementItem.reimb_ID);      // tie reimb_ID to button
     approveBtn.innerText = 'APPROVE';
     approveBtn.addEventListener('click', approveReimbursement);
     
@@ -115,12 +124,12 @@ function createRow(reimbursementItem)
     const denyBtn = document.createElement('button');
     denyBtn.setAttribute('id', 'denyBtn');
     denyBtn.setAttribute('type', 'button');
-    denyBtn.setAttribute('name', reimb_ID);         // tie reimb_ID to button
+    denyBtn.setAttribute('name', reimbursementItem.reimb_ID);         // tie reimb_ID to button
     denyBtn.innerText = 'DENY';
     denyBtn.addEventListener('click', denyReimbursement);
 
     // Bind HTML elements to the row
-    //reimbRow.appendChild(reimbView);  ---
+    //reimbRow.appendChild(reimbView);  --  For bootstrap (causing issues at the moment)
     reimbRow.appendChild(reimbID);              // Reimbursement ID
     reimbRow.appendChild(reimbAmt);             // Amount
     reimbRow.appendChild(reimbTimeSubmit);      // Time submission
@@ -130,8 +139,13 @@ function createRow(reimbursementItem)
     reimbRow.appendChild(reimbResolver);        // Resolver
     reimbRow.appendChild(reimbStatus);          // Status
     reimbRow.appendChild(reimbType);            // Type
-    reimbRow.appendChild(approveBtn);           // Approve Button
-    reimbRow.appendChild(denyBtn);              // Deny Button
+
+    // Show buttons if they are pending
+    if (reimbursementItem.status_ID == 0)
+    {
+        reimbRow.appendChild(approveBtn);           // Approve Button
+        reimbRow.appendChild(denyBtn);              // Deny Button
+    }
 
     // Return the row
     return reimbRow;

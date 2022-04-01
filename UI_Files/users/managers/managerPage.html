@@ -23,6 +23,7 @@
             </button>
             <div class="navbar-nav">
                 <div class="nav-item text-nowrap">
+                    <!--Logout Button-->
                     <a class="nav-link px-3" id="logoutBtn" href="#">Sign out</a>
                 </div>
             </div>
@@ -50,32 +51,39 @@
                 Status
                 Type
                 -->
-                <!--Table, instead of listing-->
-                <table id="reimbTable">
-                    <tr>
-                        <th class="reimbHeader">ID</th>
-                        <th class="reimbHeader">Amount</th>
-                        <th class="reimbHeader">Submitted</th>
-                        <th class="reimbHeader">Resolved</th>
-                        <th class="reimbHeader">Description</th>
-                        <th class="reimbHeader">Author</th>
-                        <th class="reimbHeader">Resolver</th>
-                        <th class="reimbHeader">Status</th>
-                        <th class="reimbHeader">Type</th>
-                    </tr>
-                    <tr class="reimbRow">
-                        <td class="reimbCell"></td>
-                        <!--A Reimbursement's info-->
-                    </tr>
-                </table>
 
+                <!-- Toggle for pending requests -->
+                <label for="pendingToggle">Pending</label>
+                <input id="pendingToggle" name="pendingToggle" type="checkbox" onclick="showReimbursements()"/>
+
+                <!--Table where reimbursements go-->
+                <table id="reimbTable">
+                    <thead>
+                        <tr>
+                            <th class="reimbHeader">ID</th>
+                            <th class="reimbHeader">Amount</th>
+                            <th class="reimbHeader">Submitted</th>
+                            <th class="reimbHeader">Resolved</th>
+                            <th class="reimbHeader">Description</th>
+                            <th class="reimbHeader">Author</th>
+                            <th class="reimbHeader">Resolver</th>
+                            <th class="reimbHeader">Status</th>
+                            <th class="reimbHeader">Type</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Reimbursement data -->
+                    <tbody id="reimbBody">
+                        <tr class="reimbRow">
+                            <td class="reimbCell"></td>
+                            <!--A Reimbursement's info-->
+                        </tr>
+                    </tbody>
+                    
+                </table>
             </fieldset>
         </div>
-        
-        <!--Logout Button-->
-        <div>
-            <button id="logoutBtn" type="button">Logout</button>
-        </div>
+
     </body>
 
 </html>
