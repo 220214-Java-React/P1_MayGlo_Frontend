@@ -117,7 +117,9 @@ function createRow(reimbursementItem)
     approveBtn.setAttribute('id', 'approveBtn');
     approveBtn.setAttribute('type', 'button');
     approveBtn.setAttribute('name', reimbursementItem.reimb_ID);      // tie reimb_ID to button
-    approveBtn.innerText = 'APPROVE';
+    approveBtn.style.backgroundColor = "#0d6efd";
+    approveBtn.className = "btnCustom";
+    approveBtn.innerText = 'Approve';
     approveBtn.addEventListener('click', approveReimbursement);
     
     // Deny Button
@@ -125,7 +127,9 @@ function createRow(reimbursementItem)
     denyBtn.setAttribute('id', 'denyBtn');
     denyBtn.setAttribute('type', 'button');
     denyBtn.setAttribute('name', reimbursementItem.reimb_ID);         // tie reimb_ID to button
-    denyBtn.innerText = 'DENY';
+    denyBtn.className = "btnCustom";
+    denyBtn.style.backgroundColor = "#dc3545";
+    denyBtn.innerText = 'Deny';
     denyBtn.addEventListener('click', denyReimbursement);
 
     // Bind HTML elements to the row
