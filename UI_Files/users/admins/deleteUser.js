@@ -18,7 +18,7 @@ deleteBtn.addEventListener('click', deleteUser);
 
 // Cancel Button
 let cancelBtn = document.getElementById('cancelBtn');
-cancelBtn.addEventListener('click', cancelCreate);
+cancelBtn.addEventListener('click', cancelDelete);
 
 // Credentials to show for the user found
 let userFound =
@@ -39,6 +39,9 @@ async function searchUser()
     // Username to search for
     let searchName = document.getElementById('searchUsername').value;
 
+    // re-hide the form if it's already open
+    document.getElementById('credentials').hidden = true;
+
     // If user enetered a name
     if (searchName)
     {
@@ -50,6 +53,9 @@ async function searchUser()
         })
         .then(response => response.json())
         .then(data => showValues(data));
+
+        // If a user is found, un-hide hidden form
+        document.getElementById('credentials').removeAttribute("hidden");
     }
 }
 
@@ -57,15 +63,6 @@ async function searchUser()
 function showValues(data)
 {
     console.log(data);
-
-    // Data needed:
-    // username
-    // password
-    // email
-    // given_name
-    // surname
-    // role_ID
-    // Set value for each HTML element
     if (data)
     {
         // If a user is found, un-hide hidden form
@@ -98,10 +95,7 @@ async function deleteUser()
     }
 }
 
-
-
-// Function when Back button is clicked
-function cancelCreate()
+function cancelDelete()
 {
     window.location.href = adminURL;     // Goes back to admin page
 }
