@@ -43,8 +43,8 @@ async function searchUser()
     // Username to search for
     let searchName = document.getElementById('searchUsername').value;
 
-        // re-hide the form if it's already open
-        document.getElementById('credentials').hidden = true;
+    // re-hide the form if it's already open
+    document.getElementById('credentials').hidden = true;
 
     // If user enetered a name
     if (searchName)
@@ -66,16 +66,7 @@ async function searchUser()
 // Values to show on HTML page
 function showValues(data)
 {
-    console.log(data);
 
-    // Data needed:
-    // username
-    // password
-    // email
-    // given_name
-    // surname
-    // role_ID
-    // Set value for each HTML element
     if (data)
     {
         // If a user is found, un-hide hidden form
