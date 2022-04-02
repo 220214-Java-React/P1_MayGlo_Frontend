@@ -75,6 +75,8 @@ function showValues(data)
         userFound.given_name.value = data.given_name;
         userFound.surname.value = data.surname;
         userFound.role_ID.value = data.role_ID;
+    } else {
+        console.log("User not found");
     }
 }
 
@@ -92,6 +94,8 @@ async function deleteUser()
     if (response.status == 200)
     {
         window.location.href = adminURL;     // Goes back to admin page
+    } else {
+        console.log("Something went wrong.");
     }
 }
 
