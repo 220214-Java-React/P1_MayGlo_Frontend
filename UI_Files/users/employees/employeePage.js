@@ -75,8 +75,6 @@ function createRow(reimbursementItem)
     reimbView.setAttribute('id', reimbursementItem.reimb_ID);
     reimbView.addEventListener('click', constructInfo);
 
-    console.log(reimbView);
-
     // ID column
     let reimbID = document.createElement("td");
     reimbID.className = "reimbCell";
@@ -132,8 +130,6 @@ async function constructInfo()
     })
     .then(response => response.json());
 
-    console.log(info.status_ID);
-
     // Enable/disable info based on status
     if (info.status_ID != 0)
     {
@@ -177,7 +173,6 @@ async function saveChanges()
         method: 'PUT',
         body: JSON.stringify(reimbObj)
     })
-    .then(response => console.log(response.status));
 
     // Refresh page
     window.location.reload();
@@ -190,19 +185,31 @@ function filterType() {
     table = document.getElementById("reimbTable");
     tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[4];
-        if (td) {
-            txtValue = td.innerText;
-            if (txtValue == convertType(parseInt(filter))) {
-            tr[i].style.display = "";
-            } else {
-            tr[i].style.display = "none";
+    if (filter == "none") {
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[5];
+            if (td) {
+                tr[i].style.display = "";
+            }
+        }
+        return;
+    } else {
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[5];
+            if (td) {
+                txtValue = td.innerText;
+                if (txtValue == convertType(parseInt(filter))) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
         }
     }
 }
+
+        
 
 function filterStatus() {
     // Declare variables
@@ -211,15 +218,25 @@ function filterStatus() {
     table = document.getElementById("reimbTable");
     tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[4];
-        if (td) {
-            txtValue = td.innerText;
-            if (txtValue == convertType(parseInt(filter))) {
-            tr[i].style.display = "";
-            } else {
-            tr[i].style.display = "none";
+    if (filter == "none") {
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[6];
+            if (td) {
+                tr[i].style.display = "";
+            }
+        }
+        return;
+    } else {
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[6];
+            if (td) {
+                txtValue = td.innerText;
+                if (txtValue == convertStatus(parseInt(filter))) {
+                tr[i].style.display = "";
+                } else {
+                tr[i].style.display = "none";
+                }
             }
         }
     }
