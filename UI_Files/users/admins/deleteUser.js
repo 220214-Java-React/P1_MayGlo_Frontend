@@ -20,6 +20,10 @@ deleteBtn.addEventListener('click', deleteUser);
 let cancelBtn = document.getElementById('cancelBtn');
 cancelBtn.addEventListener('click', cancelDelete);
 
+// Logout Button
+let logoutBtn = document.getElementById('logoutBtn');
+logoutBtn.addEventListener('click', logOutFunction);
+
 // Credentials to show for the user found
 let userFound =
 {
@@ -98,4 +102,11 @@ async function deleteUser()
 function cancelDelete()
 {
     window.location.href = adminURL;     // Goes back to admin page
+}
+
+// Function to log a user out
+function logOutFunction()
+{
+    window.localStorage.clear();
+    window.location.href = homeURL;
 }
