@@ -5,12 +5,13 @@ const servletURL = 'users';                 // <-- Servlet whose methods should 
 const adminURL = 'adminPage.html';          // Admin home page
 
 // Create Button
-let signUpBtn = document.getElementById('signUpBtn');
-signUpBtn.addEventListener('click', signUpFunction);
+let createBtn = document.getElementById('createBtn');
+createBtn.addEventListener('click', signUpFunction);
 
 // Cancel Button
 let cancelBtn = document.getElementById('cancelBtn');
 cancelBtn.addEventListener('click', cancelCreate);
+
 
 async function signUpFunction()
 {
