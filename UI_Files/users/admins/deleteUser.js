@@ -1,15 +1,11 @@
 const thisURL = window.location.href;
 const adminURL = 'adminPage.html';
 
+// URLs to access API
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
 const servletURL = 'users/';                // <-- Servlet whose methods should be used
 
-
-// Constants for the dropdown selection
-const EMP = "EMPLOYEE";
-const MANAGER = "MANAGER";
-const ADMIN = "ADMIN";
-
+// Hide user info form (until user has been searched)
 document.getElementById('credentials').setAttribute("hidden", "true");
 
 // Search Button
@@ -85,7 +81,7 @@ function showValues(data)
     }
 }
 
-
+// When the delete button is pressed
 async function deleteUser()
 {
     // Fetch request to delete a User based on ID

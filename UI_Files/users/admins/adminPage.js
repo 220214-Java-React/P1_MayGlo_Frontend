@@ -201,5 +201,5 @@ function deleteUser()
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = "/index.html";
+    window.location.href = homeURL;
 }
