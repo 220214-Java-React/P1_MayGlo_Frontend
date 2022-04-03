@@ -53,40 +53,61 @@
 
         <div class="container">
             <div class="row align-items-center">
-    
+                
                 <h1 class="display-1 text-center">Welcome, Manager.</h1>
                 <p class="text-center"><em>Please click "Pending" to view pending reimbursements.</em></p>
             </div>
-            <div>
-                <div class="mb-3 text-center">
-                    <!-- Toggle for pending requests -->
-                    <label for="pendingToggle" class="form-check-label">Pending</label>
-                    <input id="pendingToggle" name="pendingToggle" type="checkbox" class="form-check-input" onclick="showReimbursements()"/>
+            <div class="mb-3 text-center">
+                <!-- Toggle for pending requests -->
+                <label for="pendingToggle" class="form-check-label">Pending</label>
+                <input id="pendingToggle" name="pendingToggle" type="checkbox" class="form-check-input" onclick="showReimbursements()"/>
+            </div>
+            
+            <div class="row align-items-center">
+                
+                <div class="col text-center">
+                    <label class="form-label" for="role">Filter by Type: </label>
+                    <select id="type_ID" name="type_ID">
+                        <option value="none"> </option>
+                        <option value="0">Lodging</option>
+                        <option value="1">Travel</option>
+                        <option value="2">Food</option>
+                        <option value="3">Other</option>
+                    </select>
                 </div>
                 
-                <!--Table where reimbursements go-->
-                <div class="col">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="reimbHeader">ID</th>
-                                <th scope="col" class="reimbHeader">Amount</th>
-                                <th scope="col" class="reimbHeader">Submitted</th>
-                                <th scope="col" class="reimbHeader">Resolved</th>
-                                <th scope="col" class="reimbHeader">Description</th>
-                                <th scope="col" class="reimbHeader">Author</th>
-                                <th scope="col" class="reimbHeader">Resolver</th>
-                                <th scope="col" class="reimbHeader">Status</th>
-                                <th scope="col" class="reimbHeader">Type</th>
-                            </tr>
-                        </thead>
-                        
-                        <!-- Reimbursement data -->
-                        <tbody id="reimbBody">
-                                <!--A Reimbursement's info-->
-                        </tbody>
-                    </table>
+                <div class="col text-center">
+                    <label class="form-label" for="status">Filter by Status: </label>
+                    <select id="status_ID" name="status_ID">
+                        <option value="none"> </option>
+                        <option value="1">Approved</option>
+                        <option value="2">Denied</option>
+                    </select>
                 </div>
+            </div>
+            
+            <!--Table where reimbursements go-->
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="reimbHeader">ID</th>
+                            <th scope="col" class="reimbHeader">Amount</th>
+                            <th scope="col" class="reimbHeader">Submitted</th>
+                            <th scope="col" class="reimbHeader">Resolved</th>
+                            <th scope="col" class="reimbHeader">Description</th>
+                            <th scope="col" class="reimbHeader">Author</th>
+                            <th scope="col" class="reimbHeader">Resolver</th>
+                            <th scope="col" class="reimbHeader">Status</th>
+                            <th scope="col" class="reimbHeader">Type</th>
+                        </tr>
+                    </thead>
+                        
+                    <!-- Reimbursement data -->
+                    <tbody id="reimbBody">
+                        <!--A Reimbursement's info-->
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>
