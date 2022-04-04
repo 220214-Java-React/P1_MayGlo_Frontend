@@ -1,12 +1,12 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
 // Admin Page
-const adminURL = 'adminPage.html';
+const ADMIN_URL = 'adminPage.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'users';
+const FETCH_URL = 'http://localhost:8080/';
+const USER_SERVLET = 'users';
 
 // Hide user info form (until user has been searched)
 document.getElementById('credentials').setAttribute("hidden", "true");
@@ -71,7 +71,7 @@ async function searchUser()
     if (searchName)
     {
         // Search in backend
-        await fetch(`${fetchURL + servletURL + '?username=' + searchName}`,
+        await fetch(`${FETCH_URL + USER_SERVLET + '?username=' + searchName}`,
         {
             method:'GET',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
@@ -118,7 +118,7 @@ function showValues(data)
 async function deleteUser()
 {
     // Fetch request to delete a User based on ID
-    let response = await fetch(`${fetchURL + servletURL + '?id=' + userFound.id}`,
+    let response = await fetch(`${FETCH_URL + USER_SERVLET + '?id=' + userFound.id}`,
     {
         method:'DELETE',
         headers: {'Content-Type': 'application/json'},
@@ -127,19 +127,19 @@ async function deleteUser()
     // If success
     if (response.status == 200)
     {
-        window.location.href = adminURL;     // Goes back to admin page
+        window.location.href = ADMIN_URL;     // Goes back to admin page
     }
 }
 
 // Goes back to admin page
 function cancelDelete()
 {
-    window.location.href = adminURL;
+    window.location.href = ADMIN_URL;
 }
 
 // Function to log a user out
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }

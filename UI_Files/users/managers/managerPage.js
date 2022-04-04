@@ -1,9 +1,9 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'reimbursements';
+const FETCH_URL = 'http://localhost:8080/';
+const REIMB_SERVLET = 'reimbursements';
 
 // Pending Toggle
 let pendingToggle = document.getElementById('pendingToggle');
@@ -24,7 +24,7 @@ logoutBtn.addEventListener('click', logOutFunction);
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }
 
 // Get the element containing the table of reimbursements
@@ -58,7 +58,7 @@ async function showReimbursements()
     // Show pending or approved/denied reimb's
     let sendPending = pendingToggle.checked == true ? 1 : 0;
 
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&pending=' + sendPending}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&pending=' + sendPending}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -184,7 +184,7 @@ function createRow(reimbursementItem)
 // Function for when approve button is clicked
 async function approveReimbursement()
 {
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -197,7 +197,7 @@ async function approveReimbursement()
 // Function for when deny button is clicked
 async function denyReimbursement()
 {
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},

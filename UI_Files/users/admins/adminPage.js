@@ -1,14 +1,14 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html';
+const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'users';
+const FETCH_URL = 'http://localhost:8080/';
+const USER_SERVLET = 'users';
 
 // Admin Sub-pages
-const addURL = 'addUser.html';
-const updateURL = 'updateUser.html';
-const deleteURL = 'deleteUser.html';
+const ADD_URL = 'addUser.html';
+const UPDATE_URL = 'updateUser.html';
+const DELETE_URL = 'deleteUser.html';
 
 
 // Add User Button
@@ -54,7 +54,7 @@ function checkCurrentUser()
 async function getPendingUsers()
 {
     // Get inactive users
-    await fetch(`${fetchURL + servletURL + '?is_Active=false'}`,
+    await fetch(`${FETCH_URL + USER_SERVLET + '?is_Active=false'}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -160,7 +160,7 @@ async function approveUser()
     let user = approveBtn.value;
 
     // Search in backend
-    await fetch(`${fetchURL + servletURL + '?username=' + user}`,
+    await fetch(`${FETCH_URL + USER_SERVLET + '?username=' + user}`,
     {
         method:'GET',  // GET HTTP method
         headers:{"Content-type":"application/json"},    // Indicate JSON object
@@ -182,7 +182,7 @@ async function updateUser(data)
         role_ID : data.role_ID
     }
 
-    await fetch(`${fetchURL + servletURL + '?update=' + String(data.id)}`,
+    await fetch(`${FETCH_URL + USER_SERVLET + '?update=' + String(data.id)}`,
     {
         method:'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -195,19 +195,19 @@ async function updateUser(data)
 // Function to add a user
 function addUser()
 {
-    window.location.href = addURL;
+    window.location.href = ADD_URL;
 }
 
 // Function to update a user
 function updateUserButton()
 {
-    window.location.href = updateURL;
+    window.location.href = UPDATE_URL;
 }
 
 // Function to delete a user
 function deleteUser()
 {
-    window.location.href = deleteURL;
+    window.location.href = DELETE_URL;
 }
 
 
@@ -215,5 +215,5 @@ function deleteUser()
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }

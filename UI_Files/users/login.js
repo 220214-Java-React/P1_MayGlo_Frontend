@@ -7,8 +7,8 @@ const MAN_URL = 'managers/managerPage.html';    // Page for managers
 const ADMIN_URL = 'admins/adminPage.html';      // Page for admins
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'login';
+const FETCH_URL = 'http://localhost:8080/';
+const LOGIN_SERVLET = 'login';
 
 // Constants for the dropdown selection
 const EMP = 0;
@@ -43,14 +43,12 @@ async function loginFunction()
     if (userObj.username && userObj.password)
     {
         // POST User object to validate credentials
-        let data = await fetch(`${fetchURL + servletURL}`, 
+        let data = await fetch(`${FETCH_URL + LOGIN_SERVLET}`, 
         {
             method:'POST',  // POST HTTP method
             headers:{"Content-Type":"application/json"},    // Indicate JSON object
             body: JSON.stringify(userObj)   // Convert to JSON to send
         }).then(response => response.json());
-
-        console.log(data);
 
         // Get ID, Role, and is_Active from returned data
         let {id, role_ID, is_Active} = data;

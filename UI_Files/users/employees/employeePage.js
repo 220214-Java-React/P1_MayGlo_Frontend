@@ -1,12 +1,12 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
 // New Reimbursement Page
-const newReimbURL = 'newReimbursement.html';
+const NEW_REIMB_URL = 'newReimbursement.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'reimbursements';
+const FETCH_URL = 'http://localhost:8080/';
+const REIMB_SERVLET = 'reimbursements';
 
 // New Reimbursement Button
 let newReimbBtn = document.getElementById('newReimbBtn');
@@ -57,7 +57,7 @@ function checkCurrentUser()
 async function getReimbursements()
 {
     // Get the reimbursements using loggedUser's ID
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -143,7 +143,7 @@ async function constructInfo()
 {
 
     // Get the reimbursement
-    let info = await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&reimb_ID=' + this.id}`,
+    let info = await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&reimb_ID=' + this.id}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -188,7 +188,7 @@ async function saveChanges()
     }
 
     // PUT request to update reimbursement
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         body: JSON.stringify(reimbObj)
@@ -477,12 +477,12 @@ function convertStatus(ID)
 // Switch to the New Reimbursement Page
 function newReimbursement()
 {
-    window.location.href = newReimbURL;
+    window.location.href = NEW_REIMB_URL;
 }
 
 // Function to log a user out
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }

@@ -1,9 +1,9 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'reimbursements';
+const FETCH_URL = 'http://localhost:8080/';
+const REIMB_SERVLET = 'reimbursements';
 
 // Employee home page
 const employeeURL = 'employeePage.html';
@@ -72,7 +72,7 @@ async function submitReimbursement()
     if (isValid)
     {
         // POST Reimbursement object to create it in backend
-        let response = await fetch(`${fetchURL + servletURL + "?userID=" + localStorage.getItem('loggedUser')}`, 
+        let response = await fetch(`${FETCH_URL + REIMB_SERVLET + "?userID=" + localStorage.getItem('loggedUser')}`, 
         {
             method:'POST',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
@@ -108,5 +108,5 @@ function cancelReimbursement()
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }

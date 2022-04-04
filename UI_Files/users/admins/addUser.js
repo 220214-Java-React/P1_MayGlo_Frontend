@@ -1,12 +1,12 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'users';
+const FETCH_URL = 'http://localhost:8080/';
+const USER_SERVLET = 'users';
 
 // Admin Page
-const adminURL = 'adminPage.html';
+const ADMIN_URL = 'adminPage.html';
 
 // Create Button
 let createBtn = document.getElementById('createBtn');
@@ -65,7 +65,7 @@ async function signUpFunction()
     if (isValid)
     {
         // POST User object to create user in backend
-        let response = await fetch(`${fetchURL + servletURL}`, 
+        let response = await fetch(`${FETCH_URL + USER_SERVLET}`, 
         {
             method:'POST',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
@@ -77,7 +77,7 @@ async function signUpFunction()
         if (response.status == 204) 
         {
             // Switch page
-            window.location.href = adminURL;
+            window.location.href = ADMIN_URL;
         }
         else    // User was not created correctly
         {
@@ -94,12 +94,12 @@ async function signUpFunction()
 // Goes back to admin page
 function cancelCreate()
 {
-    window.location.href = adminURL;
+    window.location.href = ADMIN_URL;
 }
 
 // Function to log a user out
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }

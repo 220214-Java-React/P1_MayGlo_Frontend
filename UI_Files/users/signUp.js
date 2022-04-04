@@ -2,8 +2,8 @@
 const indexPage = 'http://127.0.0.1:5500/UI_Files/index.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'users';
+const FETCH_URL = 'http://localhost:8080/';
+const USER_SERVLET = 'users';
 
 // Sign Up Button
 let signUpBtn = document.getElementById('signUpBtn');
@@ -40,7 +40,7 @@ async function signUpFunction()
     if (isValid)
     {
         // POST User object to create user in backend
-        let response = await fetch(`${fetchURL + servletURL}`,  // <-- URL/servlet to fetch
+        let response = await fetch(`${FETCH_URL + USER_SERVLET}`,  // <-- URL/servlet to fetch
         {
             method:'POST',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
