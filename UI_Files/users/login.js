@@ -51,9 +51,14 @@ async function loginFunction()
         // Get ID, Role, and is_Active from returned data
         let {id, role_ID, is_Active} = data;
 
+        if (id == -1) {
+            alert("Login information incorrect.");
+            return;
+        }
+
         if (!is_Active)     // Check if account is active
         {
-            alert("Account not active.");
+            alert("Account not active. Please contact your administrator for more information.");
             return;
         }
 
