@@ -47,20 +47,8 @@ async function signUpFunction()
             body: JSON.stringify(userObj)   // Convert to JSON to send
         });
 
-        // Retrieve data to ensure user was created (not needed?)
-        let data = await fetch(`${fetchURL + servletURL + '?username=' + userObj.username}`,
-        {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(resp => resp.json());
-
-        console.log(data);
-
-        let {id} = data;   // Ensure there is a user
-
         // User was created successfully
-        if (id) 
+        if (response.status == 201)
         {
             goBack();   // Go back home
         }
