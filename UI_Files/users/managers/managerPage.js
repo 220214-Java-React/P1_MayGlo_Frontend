@@ -190,6 +190,8 @@ async function approveReimbursement()
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({reimb_ID : this.name, status_ID : 1})
     }).then(response => console.log(response.status))
+
+    location.reload();
 }
 
 // Function for when deny button is clicked
@@ -201,6 +203,8 @@ async function denyReimbursement()
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({reimb_ID : this.name, status_ID : 2})
     }).then(response => console.log(response.status))
+
+    location.reload();
 }
 
 function filterType() {
