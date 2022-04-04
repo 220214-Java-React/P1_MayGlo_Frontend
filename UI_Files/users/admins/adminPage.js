@@ -137,6 +137,10 @@ function createRow(reimbursementItem)
     return userRow;
 }
 
+function setUserValue(user) {
+    approveBtn.value = user;
+}
+
 // Converts Role ID
 function convertRole(ID)
 {
@@ -154,21 +158,19 @@ function convertRole(ID)
 async function approveUser()
 {
     let user = approveBtn.value;
-    console.log("The value of the user to be approve/activated is: " + user);
-    
-        // Search in backend
-        await fetch(`${fetchURL + servletURL + '?username=' + user}`,
-        {
-            method:'GET',  // GET HTTP method
-            headers:{"Content-type":"application/json"},    // Indicate JSON object
-        })
-        .then(response => response.json())
-        .then(data => updateUser(data));
+
+    // Search in backend
+    await fetch(`${fetchURL + servletURL + '?username=' + user}`,
+    {
+        method:'GET',  // GET HTTP method
+        headers:{"Content-type":"application/json"},    // Indicate JSON object
+    })
+    .then(response => response.json())
+    .then(data => updateUser(data));
 }
 
 async function updateUser(data)
 {
-    console.log(data);
     const updatedUser =
     {
         username : data.username,
@@ -180,10 +182,7 @@ async function updateUser(data)
         role_ID : data.role_ID
     }
 
-    console.log(updatedUser);
-    console.log(data.id);
-
-    let response = await fetch(`${fetchURL + servletURL + '?update=' + String(data.id)}`,
+    await fetch(`${fetchURL + servletURL + '?update=' + String(data.id)}`,
     {
         method:'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -191,11 +190,6 @@ async function updateUser(data)
     });
 
     location.reload(); 
-}
-
-function setUserValue(user) {
-    approveBtn.value = user;
-    console.log("The value of the Approve/Active button is: " + approveBtn.value);
 }
 
 // Function to add a user
