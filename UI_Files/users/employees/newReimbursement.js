@@ -1,3 +1,6 @@
+//Home URL
+const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+
 // URLs to access API
 const fetchURL = 'http://localhost:8080/';
 const servletURL = 'reimbursements/';
@@ -12,6 +15,10 @@ submitBtn.addEventListener('click', submitReimbursement);
 // Cancel Button
 let cancelBtn = document.getElementById('cancelBtn');
 cancelBtn.addEventListener('click', cancelReimbursement);
+
+// Logout Button
+let logoutBtn = document.getElementById('logoutBtn');
+logoutBtn.addEventListener('click', logOutFunction);
 
 // When the window loads, check for a logged in user
 window.onload = checkCurrentUser;
@@ -84,4 +91,11 @@ async function submitReimbursement()
 function cancelReimbursement()
 {
     window.location.href = employeeURL;     // Goes back to employee page
+}
+
+// Function to log a user out
+function logOutFunction()
+{
+    window.localStorage.clear();
+    window.location.href = homeURL;
 }
