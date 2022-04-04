@@ -1,11 +1,12 @@
 //Home URL
 const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
+// Admin Page
 const adminURL = 'adminPage.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'users/';                // <-- Servlet whose methods should be used
+const fetchURL = 'http://localhost:8080/';
+const servletURL = 'users/';
 
 // Hide user info form (until user has been searched)
 document.getElementById('credentials').setAttribute("hidden", "true");
@@ -140,10 +141,10 @@ async function updateUser()
 }
 
 
-// Function when Back button is clicked
+// Goes back to admin page
 function cancelCreate()
 {
-    window.location.href = adminURL;     // Goes back to admin page
+    window.location.href = adminURL;
 }
 
 // Function to log a user out

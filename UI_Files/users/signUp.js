@@ -1,19 +1,9 @@
-const baseURL = 'http://127.0.0.1:5500/UI_Files/';          // ONLY FOR TESTING
-const indexPage = 'index.html';
-
-const thisURL = window.location.href;
-const employeeURL = 'employees/employeePage.html';    // Page for employees
-const managerURL = 'managers/managerPage.html';      // Page for managers
-const adminURL = 'admins/adminPage.html';          // Page for admins
+// Home Page URL
+const indexPage = 'http://127.0.0.1:5500/UI_Files/index.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'users/';                // <-- Servlet whose methods should be used
-
-// Constants for the dropdown selection
-const EMP = 0;
-const MANAGER = 1;
-const ADMIN = 2;
+const fetchURL = 'http://localhost:8080/';
+const servletURL = 'users/';
 
 // Sign Up Button
 let signUpBtn = document.getElementById('signUpBtn');
@@ -89,6 +79,5 @@ async function signUpFunction()
 // Function when Back button is clicked
 function goBack()
 {
-    window.location.href = baseURL + indexPage;
-    // history.back();     // Goes back a page
+    window.location.href = indexPage;
 }

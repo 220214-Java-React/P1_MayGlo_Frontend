@@ -1,7 +1,11 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html';
+
+// URLs to access API
 const fetchURL = 'http://localhost:8080/';
 const servletURL = 'users';
+
+// Admin Sub-pages
 const addURL = 'addUser.html';
 const updateURL = 'updateUser.html';
 const deleteURL = 'deleteUser.html';
@@ -158,7 +162,7 @@ async function approveUser()
         // Search in backend
         await fetch(`${fetchURL + servletURL + '?username=' + user}`,
         {
-            method:'GET',  // POST HTTP method
+            method:'GET',  // GET HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
         })
         .then(response => response.json())

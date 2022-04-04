@@ -1,6 +1,8 @@
-const thisURL = window.location.href;
-const loginURL = 'users/login.html';    // Login file path
-const signUpURL = 'users/signUp.html';  // Sign Up file path
+// Login file path
+const loginURL = 'users/login.html';
+
+// Sign Up file path
+const signUpURL = 'users/signUp.html';
 
 // Login Button
 let loginBtn = document.getElementById("loginBtn");

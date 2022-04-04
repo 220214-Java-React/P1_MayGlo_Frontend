@@ -1,8 +1,9 @@
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'reimbursements/';        // <-- Servlet whose methods should be used
+const fetchURL = 'http://localhost:8080/';
+const servletURL = 'reimbursements/';
 
-const employeeURL = 'employeePage.html';    // Employee home page
+// Employee home page
+const employeeURL = 'employeePage.html';
 
 // Submit Button
 let submitBtn = document.getElementById('submitBtn');
@@ -84,12 +85,3 @@ function cancelReimbursement()
 {
     window.location.href = employeeURL;     // Goes back to employee page
 }
-
-
-
-
-
-
-
-
-

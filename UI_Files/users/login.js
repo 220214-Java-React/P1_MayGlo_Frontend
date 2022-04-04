@@ -1,12 +1,13 @@
-const indexPage = 'http://127.0.0.1:5500/UI_Files/index.html';
+// Home Page
+const INDEX_PAGE = 'http://127.0.0.1:5500/UI_Files/index.html';
 
 const EMP_URL = 'employees/employeePage.html';   // Page for employees
 const MAN_URL = 'managers/managerPage.html'; // Page for managers
 const ADMIN_URL = 'admins/adminPage.html';       // Page for admins
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'login.html';            // <-- Servlet whose methods should be used
+const fetchURL = 'http://localhost:8080/';
+const servletURL = 'login.html';
 
 // Constants for the dropdown selection
 const EMP = 0;
@@ -36,6 +37,7 @@ async function loginFunction()
         password: password
     }
 
+    // Check for a user name and password
     if (userObj.username && userObj.password)
     {
         // POST User object to validate credentials
@@ -93,6 +95,5 @@ async function loginFunction()
 // Function when Back button is clicked
 function goBack()
 {
-    window.location.href = indexPage;
-    // history.back();     // Goes back a page
+    window.location.href = INDEX_PAGE;
 }
