@@ -78,48 +78,45 @@ function createRow(reimbursementItem)
     const userRow = document.createElement("tr");      // Current row
     userRow.className = "userRow";                    // Assign class
 
-    // Destructure object for needed values
-    let {id, given_name, surname, username, email, role_ID} = reimbursementItem;
-
     // Create each cell for this row --
 
     // View link
     let userView = document.createElement("td");
     userView.className = "userRow";
     userView.scope = "row";
-    userView.innerHTML = `<a href="#" data-bs-toggle="modal" data-bs-target="#userViewModal" value=${username} class="viewLink">View</a>`;
+    userView.innerHTML = `<a href="#" data-bs-toggle="modal" data-bs-target="#userViewModal" value=${reimbursementItem.username} class="viewLink">View</a>`;
 
     //userView.addEventListener("click", setUserValue(this));
 
     // ID column
     let userID = document.createElement("td");
     userID.className = "userRow";
-    userID.innerText = id;
+    userID.innerText = reimbursementItem.id;
 
     // FIRST NAME/GIVEN_NAME
     let userFirstName = document.createElement("td");
     userFirstName.className = "userRow";
-    userFirstName.innerText = given_name;
+    userFirstName.innerText = reimbursementItem.given_name;
 
     // LAST NAME/SURNAME
     let userSurname = document.createElement("td");
     userSurname.className = "userRow";
-    userSurname.innerText = surname;
+    userSurname.innerText = reimbursementItem.surname;
     
     // USERNAME
     let userUsername = document.createElement("td");
     userUsername.className = "userRow";
-    userUsername.innerText = username;
+    userUsername.innerText = reimbursementItem.username;
 
     // USERNAME
     let userEmail = document.createElement("td");
     userEmail.className = "userRow";
-    userEmail.innerText = email;
+    userEmail.innerText = reimbursementItem.email;
 
     // ROLE
     let userRole = document.createElement("td");
     userRole.className = "userRow";
-    userRole.innerText = convertRole(role_ID);
+    userRole.innerText = convertRole(reimbursementItem.role_ID);
 
     // Bind HTML elements to the row
     userRow.appendChild(userView);
@@ -133,7 +130,7 @@ function createRow(reimbursementItem)
     // Adds a passive event listener to the View link after it's been added to the document.
     let viewLink = userRow.childNodes[0].firstChild;
     viewLink.addEventListener("click", function() {
-        setUserValue(username);
+        setUserValue(reimbursementItem.username);
     });
 
     // Return the row
