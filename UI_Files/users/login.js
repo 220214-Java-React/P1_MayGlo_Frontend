@@ -1,9 +1,10 @@
 // Home Page
 const INDEX_PAGE = 'http://127.0.0.1:5500/UI_Files/index.html';
 
-const EMP_URL = 'employees/employeePage.html';   // Page for employees
-const MAN_URL = 'managers/managerPage.html'; // Page for managers
-const ADMIN_URL = 'admins/adminPage.html';       // Page for admins
+// User Pages
+const EMP_URL = 'employees/employeePage.html';  // Page for employees
+const MAN_URL = 'managers/managerPage.html';    // Page for managers
+const ADMIN_URL = 'admins/adminPage.html';      // Page for admins
 
 // URLs to access API
 const fetchURL = 'http://localhost:8080/';
@@ -27,6 +28,7 @@ async function loginFunction()
 {
     // Get username from DOM element
     let username = document.getElementById('username').value;
+    
     // Get password from DOM element
     let password = document.getElementById('password').value;
 
@@ -58,7 +60,8 @@ async function loginFunction()
             return;
         }
 
-        if (!is_Active)     // Check if account is active
+        // Check if account is active
+        if (!is_Active)    
         {
             alert("Account not active. Please contact your administrator for more information.");
             return;

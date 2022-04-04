@@ -89,12 +89,13 @@ async function searchUser()
 // Values to show on HTML page
 function showValues(data)
 {
-
+    // Check if user was found
     if (data.id != -1)
     {
         // If a user is found, un-hide hidden form
         document.getElementById('credentials').removeAttribute("hidden");
         
+        // Show values
         userFound.id = data.id;
         userFound.u_name.value = data.username;
         userFound.p_word.value = data.password;
@@ -112,6 +113,7 @@ function showValues(data)
 // When the update button is pressed
 async function updateUser()
 {
+    // Create User object to send to API
     const updatedUser =
     {
         username : userFound.u_name.value,
@@ -122,8 +124,6 @@ async function updateUser()
         is_Active : userFound.is_Active.checked,
         role_ID : userFound.role_ID.value
     }
-
-    console.log(updatedUser);
 
     // Fetch request to delete a User based on ID
     let response = await fetch(`${fetchURL + servletURL + '?update=' + String(userFound.id)}`,

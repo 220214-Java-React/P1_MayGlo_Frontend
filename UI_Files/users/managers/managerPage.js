@@ -52,11 +52,12 @@ function checkCurrentUser()
 // Managers can see all reimbursements and approve/deny them = get all reimbursements
 async function showReimbursements()
 {
-    reimbBody.innerHTML = "";     // Clear body data
+    // Clear body data
+    reimbBody.innerHTML = "";     
 
+    // Show pending or approved/denied reimb's
     let sendPending = pendingToggle.checked == true ? 1 : 0;
 
-    console.log(sendPending);
     await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&pending=' + sendPending}`,
     {
         method: 'GET',

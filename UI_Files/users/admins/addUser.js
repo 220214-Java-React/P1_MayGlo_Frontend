@@ -38,6 +38,7 @@ function checkCurrentUser()
   }
 }
 
+// Function to run when the create button is pressed
 async function signUpFunction()
 {
     // Create a user with necessary credentials

@@ -12,7 +12,7 @@ loginBtn.addEventListener('click', loginFunction);
 let signUpBtn = document.getElementById("signUpBtn");
 signUpBtn.addEventListener('click', signUpFunction);
 
-window.localStorage.clear();
+window.onload = window.localStorage.clear();
 
 // Login Option
 function loginFunction()

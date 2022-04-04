@@ -50,7 +50,7 @@ function checkCurrentUser()
   }
 }
 
-
+// Find pending users
 async function getPendingUsers()
 {
     // Get inactive users
