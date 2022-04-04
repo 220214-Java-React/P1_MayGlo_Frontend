@@ -58,6 +58,17 @@ async function submitReimbursement()
             return true;
     })
 
+    // Ensure a positive, decimal based number is entered
+    if (Number(reimbObj.amount) > 0)
+    {
+        reimbObj.amount = Number.parseFloat(reimbObj.amount).toFixed(2);
+    }
+    else
+    {
+        alert("Enter a proper decimal number for the amount.");
+        return;
+    }
+
     if (isValid)
     {
         // POST Reimbursement object to create it in backend
