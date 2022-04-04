@@ -1,4 +1,6 @@
-const thisURL = window.location.href;
+//Home URL
+const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+
 const adminURL = 'adminPage.html';
 
 // URLs to access API
@@ -19,6 +21,28 @@ updateBtn.addEventListener('click', updateUser);
 // Cancel Button
 let cancelBtn = document.getElementById('cancelBtn');
 cancelBtn.addEventListener('click', cancelCreate);
+
+// Logout Button
+let logoutBtn = document.getElementById('logoutBtn');
+logoutBtn.addEventListener('click', logOutFunction);
+
+// When the window loads, check for a logged in user
+window.onload = checkCurrentUser;
+
+// Ensures there is a user logged in
+function checkCurrentUser()
+{
+  // There is a user
+  if (localStorage.getItem('loggedUser'))
+  {
+    console.log('logged in');
+  }
+  else  // No user logged in
+  {
+    console.log('logged out');
+    cancelCreate();
+  }
+}
 
 // Credentials to show for the user found
 let userFound =
@@ -115,4 +139,11 @@ async function updateUser()
 function cancelCreate()
 {
     window.location.href = adminURL;     // Goes back to admin page
+}
+
+// Function to log a user out
+function logOutFunction()
+{
+    window.localStorage.clear();
+    window.location.href = homeURL;
 }
