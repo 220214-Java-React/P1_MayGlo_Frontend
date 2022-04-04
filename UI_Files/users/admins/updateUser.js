@@ -78,8 +78,10 @@ async function searchUser()
         .then(response => response.json())
         .then(data => showValues(data));
     
-        // If a user is found, un-hide hidden form
-        document.getElementById('credentials').removeAttribute("hidden");
+        if (data.id != -1) {
+            // If a user is found, un-hide hidden form
+            document.getElementById('credentials').removeAttribute("hidden");
+        }
     }
 }
 
@@ -87,7 +89,7 @@ async function searchUser()
 function showValues(data)
 {
 
-    if (data)
+    if (data.id != -1)
     {
         // If a user is found, un-hide hidden form
         document.getElementById('credentials').removeAttribute("hidden");
@@ -100,6 +102,9 @@ function showValues(data)
         userFound.surname.value = data.surname;
         userFound.is_Active.checked = data.is_Active;
         userFound.role_ID.value = data.role_ID;
+    } else {
+        alert("User not found.");
+        document.getElementById('credentials').hidden = true;
     }
 }
 
