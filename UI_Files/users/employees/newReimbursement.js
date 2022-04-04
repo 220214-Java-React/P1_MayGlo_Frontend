@@ -12,6 +12,24 @@ submitBtn.addEventListener('click', submitReimbursement);
 let cancelBtn = document.getElementById('cancelBtn');
 cancelBtn.addEventListener('click', cancelReimbursement);
 
+// When the window loads, check for a logged in user
+window.onload = checkCurrentUser;
+
+// Ensures there is a user logged in
+function checkCurrentUser()
+{
+  // There is a user
+  if (localStorage.getItem('loggedUser'))
+  {
+    console.log('logged in');
+  }
+  else  // No user logged in
+  {
+    console.log('logged out');
+    cancelReimbursement();
+  }
+}
+
 // Function for when a new Reimbursement is submitted
 async function submitReimbursement()
 {

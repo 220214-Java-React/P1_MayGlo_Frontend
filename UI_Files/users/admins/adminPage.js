@@ -1,5 +1,5 @@
-//const mainURL = 'http://localhost:8080/adminPage.html';     // Current URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
+//Home URL
+const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 const fetchURL = 'http://localhost:8080/';
 const servletURL = 'users';
 const addURL = 'addUser.html';
@@ -26,7 +26,26 @@ logoutBtn.addEventListener('click', logOutFunction);
 let approveBtn = document.getElementById('approveBtn');
 approveBtn.addEventListener('click', approveUser);
 
-window.onload = getPendingUsers;  // When the window loads, show reimbursements
+ // When the window loads, check the user and then show admin page
+window.onload = checkCurrentUser; 
+
+
+// Ensures there is a user logged in
+function checkCurrentUser()
+{
+  // There is a user
+  if (localStorage.getItem('loggedUser'))
+  {
+    console.log('logged in');
+    getPendingUsers();
+  }
+  else  // No user logged in
+  {
+    console.log('logged out');
+    logOutFunction();
+  }
+}
+
 
 async function getPendingUsers()
 {

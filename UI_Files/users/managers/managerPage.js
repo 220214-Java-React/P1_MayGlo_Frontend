@@ -1,5 +1,5 @@
-//const thisURL = window.location.href;     // Current URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
+//Home URL
+const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
 // URLs to access API
 const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
@@ -31,7 +31,23 @@ function logOutFunction()
 const reimbBody = document.getElementById("reimbBody");
 
 // When window loads
-window.onload = showReimbursements;
+window.onload = checkCurrentUser;
+
+// Ensures there is a user logged in
+function checkCurrentUser()
+{
+  // There is a user
+  if (localStorage.getItem('loggedUser'))
+  {
+    console.log('logged in');
+    showReimbursements();
+  }
+  else  // No user logged in
+  {
+    console.log('logged out');
+    logOutFunction();
+  }
+}
 
 // Managers can see all reimbursements and approve/deny them = get all reimbursements
 async function showReimbursements()

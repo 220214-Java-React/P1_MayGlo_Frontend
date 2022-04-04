@@ -1,4 +1,5 @@
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
+//Home URL
+const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 const newReimbURL = 'newReimbursement.html';
 
 // URLs to access API
@@ -30,8 +31,25 @@ let typeData = document.getElementById('typeData');
 let saveBtn = document.getElementById('saveBtn');
 saveBtn.addEventListener('click', saveChanges);
 
-// When the window loads, show reimbursements
-window.onload = getReimbursements;
+// When the window loads, check user and get reimbursements
+window.onload = checkCurrentUser;
+
+// Ensures there is a user logged in
+function checkCurrentUser()
+{
+  // There is a user
+  if (localStorage.getItem('loggedUser'))
+  {
+    console.log('logged in');
+    getReimbursements();
+  }
+  else  // No user logged in
+  {
+    console.log('logged out');
+    logOutFunction();
+  }
+}
+
 
 // Get all reimbursements for this user
 async function getReimbursements()
