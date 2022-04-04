@@ -70,8 +70,6 @@ async function showReimbursements()
 // Create the rows for the table after getting needed data
 function constructRows(arrayReimb)
 {
-    console.log(arrayReimb);
-    
     // Create a row for each reimbursement, append it to the table
     arrayReimb.forEach(element => reimbBody.appendChild(createRow(element)));
 }
@@ -189,7 +187,7 @@ async function approveReimbursement()
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({reimb_ID : this.name, status_ID : 1})
-    }).then(response => console.log(response.status))
+    });
 
     location.reload();
 }
@@ -202,7 +200,7 @@ async function denyReimbursement()
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({reimb_ID : this.name, status_ID : 2})
-    }).then(response => console.log(response.status))
+    });
 
     location.reload();
 }
