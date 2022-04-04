@@ -8,7 +8,7 @@ const ADMIN_URL = 'admins/adminPage.html';      // Page for admins
 
 // URLs to access API
 const fetchURL = 'http://localhost:8080/';
-const servletURL = 'login.html';
+const servletURL = 'login';
 
 // Constants for the dropdown selection
 const EMP = 0;

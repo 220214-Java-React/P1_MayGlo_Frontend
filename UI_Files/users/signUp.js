@@ -3,7 +3,7 @@ const indexPage = 'http://127.0.0.1:5500/UI_Files/index.html';
 
 // URLs to access API
 const fetchURL = 'http://localhost:8080/';
-const servletURL = 'users/';
+const servletURL = 'users';
 
 // Sign Up Button
 let signUpBtn = document.getElementById('signUpBtn');

@@ -6,7 +6,7 @@ const adminURL = 'adminPage.html';
 
 // URLs to access API
 const fetchURL = 'http://localhost:8080/';
-const servletURL = 'users/';
+const servletURL = 'users';
 
 // Hide user info form (until user has been searched)
 document.getElementById('credentials').setAttribute("hidden", "true");
