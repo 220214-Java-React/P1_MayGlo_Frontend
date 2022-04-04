@@ -71,26 +71,38 @@ async function searchUser()
     if (searchName)
     {
         // Search in backend
-        let data = await fetch(`${fetchURL + servletURL + '?username=' + searchName}`,
+        await fetch(`${fetchURL + servletURL + '?username=' + searchName}`,
         {
             method:'GET',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
         })
         .then(response => response.json())
-        .then(data => showValues(data));
-    
-        if (data.id != -1) {
-            // If a user is found, un-hide hidden form
-            document.getElementById('credentials').removeAttribute("hidden");
-        }
+        .then(data => checkUserFound(data));
     }
 }
+
+
+// Checks for if the user exists before showing values
+function checkUserFound(data)
+{
+    if (data.id != -1) {
+        showValues(data)
+        // If a user is found, un-hide hidden form
+        document.getElementById('credentials').removeAttribute("hidden");
+    }
+    else
+    {
+        alert("User not found.");
+        document.getElementById('credentials').hidden = true;
+    }
+}
+
 
 // Values to show on HTML page
 function showValues(data)
 {
     // Check if user was found
-    if (data.id != -1)
+    if (data)
     {
         // If a user is found, un-hide hidden form
         document.getElementById('credentials').removeAttribute("hidden");
@@ -104,9 +116,6 @@ function showValues(data)
         userFound.surname.value = data.surname;
         userFound.is_Active.checked = data.is_Active;
         userFound.role_ID.value = data.role_ID;
-    } else {
-        alert("User not found.");
-        document.getElementById('credentials').hidden = true;
     }
 }
 
