@@ -93,7 +93,6 @@ function checkUserFound(data)
         showValues(data)
         // If a user is found, un-hide hidden form
         document.getElementById('credentials').removeAttribute("hidden");
-        reimbDeleteWarn.removeAttribute("hidden");
     }
     else
     {
@@ -119,22 +118,32 @@ async function showValues(data)
         userFound.surname.value = data.surname;
         userFound.role_ID.value = data.role_ID;
 
-        
-        // Get the reimbursements using user's ID
-        let response = await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + data.id + '&role_ID=' + data.role_ID}`,
+        // If it is not an admin, check for reimbursements
+        if (data.role_ID != 2)
         {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        });
+            // Get the reimbursements using user's ID
+            let response = await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + data.id + '&role_ID=' + data.role_ID}`,
+            {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            });
 
-        // If user has reimbursements, inform user that those will be deleted
-        if (response.status == 200)
-        {
-            let reimbArray = await response.json();
-            reimbDeleteWarn.removeAttribute('hidden');
-            reimbDeleteWarn.innerText = `${"User has " + reimbArray.length + " reimbursements that will be deleted as well."}`
+            // If user has reimbursements, inform user that those will be deleted
+            if (response.status == 200)
+            {
+                let reimbArray = await response.json();
+                if(reimbArray)
+                {
+                    reimbDeleteWarn.removeAttribute('hidden');
+                    reimbDeleteWarn.innerText = `${"User has " + reimbArray.length + " reimbursement(s) created or approved/denied that will be deleted as well."}`
+                }
+            }
+            else 
+            {
+                reimbDeleteWarn.hidden = true;
+                return;
+            }
         }
-        else return;
     }
 }
 
