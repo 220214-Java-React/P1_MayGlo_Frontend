@@ -1,11 +1,12 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
-const adminURL = 'adminPage.html';
+// Admin Page
+const ADMIN_URL = 'adminPage.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'users/';                // <-- Servlet whose methods should be used
+const FETCH_URL = 'http://localhost:8080/';
+const USER_SERVLET = 'users';
 
 // Hide user info form (until user has been searched)
 document.getElementById('credentials').setAttribute("hidden", "true");
@@ -70,30 +71,43 @@ async function searchUser()
     if (searchName)
     {
         // Search in backend
-        let data = await fetch(`${fetchURL + servletURL + '?username=' + searchName}`,
+        await fetch(`${FETCH_URL + USER_SERVLET + '?username=' + searchName}`,
         {
             method:'GET',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
         })
         .then(response => response.json())
-        .then(data => showValues(data));
-    
-        if (data.id != -1) {
-            // If a user is found, un-hide hidden form
-            document.getElementById('credentials').removeAttribute("hidden");
-        }
+        .then(data => checkUserFound(data));
     }
 }
+
+
+// Checks for if the user exists before showing values
+function checkUserFound(data)
+{
+    if (data.id != -1) {
+        showValues(data)
+        // If a user is found, un-hide hidden form
+        document.getElementById('credentials').removeAttribute("hidden");
+    }
+    else
+    {
+        alert("User not found.");
+        document.getElementById('credentials').hidden = true;
+    }
+}
+
 
 // Values to show on HTML page
 function showValues(data)
 {
-
-    if (data.id != -1)
+    // Check if user was found
+    if (data)
     {
         // If a user is found, un-hide hidden form
         document.getElementById('credentials').removeAttribute("hidden");
         
+        // Show values
         userFound.id = data.id;
         userFound.u_name.value = data.username;
         userFound.p_word.value = data.password;
@@ -102,15 +116,13 @@ function showValues(data)
         userFound.surname.value = data.surname;
         userFound.is_Active.checked = data.is_Active;
         userFound.role_ID.value = data.role_ID;
-    } else {
-        alert("User not found.");
-        document.getElementById('credentials').hidden = true;
     }
 }
 
 // When the update button is pressed
 async function updateUser()
 {
+    // Create User object to send to API
     const updatedUser =
     {
         username : userFound.u_name.value,
@@ -122,10 +134,8 @@ async function updateUser()
         role_ID : userFound.role_ID.value
     }
 
-    console.log(updatedUser);
-
     // Fetch request to delete a User based on ID
-    let response = await fetch(`${fetchURL + servletURL + '?update=' + String(userFound.id)}`,
+    let response = await fetch(`${FETCH_URL + USER_SERVLET + '?update=' + String(userFound.id)}`,
     {
         method:'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -135,20 +145,20 @@ async function updateUser()
     // If success
     if (response.status == 200)
     {
-        window.location.href = adminURL;     // Goes back to admin page
+        window.location.href = ADMIN_URL;     // Goes back to admin page
     }
 }
 
 
-// Function when Back button is clicked
+// Goes back to admin page
 function cancelCreate()
 {
-    window.location.href = adminURL;     // Goes back to admin page
+    window.location.href = ADMIN_URL;
 }
 
 // Function to log a user out
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }

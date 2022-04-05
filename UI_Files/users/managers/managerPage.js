@@ -1,9 +1,9 @@
 //Home URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'reimbursements';        // <-- Servlet whose methods should be used
+const FETCH_URL = 'http://localhost:8080/';
+const REIMB_SERVLET = 'reimbursements';
 
 // Pending Toggle
 let pendingToggle = document.getElementById('pendingToggle');
@@ -24,7 +24,7 @@ logoutBtn.addEventListener('click', logOutFunction);
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }
 
 // Get the element containing the table of reimbursements
@@ -52,12 +52,13 @@ function checkCurrentUser()
 // Managers can see all reimbursements and approve/deny them = get all reimbursements
 async function showReimbursements()
 {
-    reimbBody.innerHTML = "";     // Clear body data
+    // Clear body data
+    reimbBody.innerHTML = "";     
 
+    // Show pending or approved/denied reimb's
     let sendPending = pendingToggle.checked == true ? 1 : 0;
 
-    console.log(sendPending);
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&pending=' + sendPending}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&pending=' + sendPending}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -69,8 +70,6 @@ async function showReimbursements()
 // Create the rows for the table after getting needed data
 function constructRows(arrayReimb)
 {
-    console.log(arrayReimb);
-    
     // Create a row for each reimbursement, append it to the table
     arrayReimb.forEach(element => reimbBody.appendChild(createRow(element)));
 }
@@ -183,23 +182,27 @@ function createRow(reimbursementItem)
 // Function for when approve button is clicked
 async function approveReimbursement()
 {
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({reimb_ID : this.name, status_ID : 1})
-    }).then(response => console.log(response.status))
+    });
+
+    location.reload();
 }
 
 // Function for when deny button is clicked
 async function denyReimbursement()
 {
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({reimb_ID : this.name, status_ID : 2})
-    }).then(response => console.log(response.status))
+    });
+
+    location.reload();
 }
 
 function filterType() {
