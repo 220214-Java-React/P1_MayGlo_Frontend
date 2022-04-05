@@ -1,10 +1,14 @@
-//const mainURL = 'http://localhost:8080/adminPage.html';     // Current URL
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
-const fetchURL = 'http://localhost:8080/';
-const servletURL = 'users';
-const addURL = 'addUser.html';
-const updateURL = 'updateUser.html';
-const deleteURL = 'deleteUser.html';
+//Home URL
+const HOME_URL = 'http://127.0.0.1:5500/MayGloRMS/index.html';
+
+// URLs to access API
+const FETCH_URL = 'http://localhost:8080/';
+const USER_SERVLET = 'users';
+
+// Admin Sub-pages
+const ADD_URL = 'addUser.html';
+const UPDATE_URL = 'updateUser.html';
+const DELETE_URL = 'deleteUser.html';
 
 
 // Add User Button
@@ -26,12 +30,31 @@ logoutBtn.addEventListener('click', logOutFunction);
 let approveBtn = document.getElementById('approveBtn');
 approveBtn.addEventListener('click', approveUser);
 
-window.onload = getPendingUsers;  // When the window loads, show reimbursements
+ // When the window loads, check the user and then show admin page
+window.onload = checkCurrentUser; 
 
+
+// Ensures there is a user logged in
+function checkCurrentUser()
+{
+  // There is a user
+  if (localStorage.getItem('loggedUser'))
+  {
+    console.log('logged in');
+    getPendingUsers();
+  }
+  else  // No user logged in
+  {
+    console.log('logged out');
+    logOutFunction();
+  }
+}
+
+// Find pending users
 async function getPendingUsers()
 {
     // Get inactive users
-    await fetch(`${fetchURL + servletURL + '?is_Active=false'}`,
+    await fetch(`${FETCH_URL + USER_SERVLET + '?is_Active=false'}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -55,48 +78,45 @@ function createRow(reimbursementItem)
     const userRow = document.createElement("tr");      // Current row
     userRow.className = "userRow";                    // Assign class
 
-    // Destructure object for needed values
-    let {id, given_name, surname, username, email, role_ID} = reimbursementItem;
-
     // Create each cell for this row --
 
     // View link
     let userView = document.createElement("td");
     userView.className = "userRow";
     userView.scope = "row";
-    userView.innerHTML = `<a href="#" data-bs-toggle="modal" data-bs-target="#userViewModal" value=${username} class="viewLink">View</a>`;
+    userView.innerHTML = `<a href="#" data-bs-toggle="modal" data-bs-target="#userViewModal" value=${reimbursementItem.username} class="viewLink">View</a>`;
 
     //userView.addEventListener("click", setUserValue(this));
 
     // ID column
     let userID = document.createElement("td");
     userID.className = "userRow";
-    userID.innerText = id;
+    userID.innerText = reimbursementItem.id;
 
     // FIRST NAME/GIVEN_NAME
     let userFirstName = document.createElement("td");
     userFirstName.className = "userRow";
-    userFirstName.innerText = given_name;
+    userFirstName.innerText = reimbursementItem.given_name;
 
     // LAST NAME/SURNAME
     let userSurname = document.createElement("td");
     userSurname.className = "userRow";
-    userSurname.innerText = surname;
+    userSurname.innerText = reimbursementItem.surname;
     
     // USERNAME
     let userUsername = document.createElement("td");
     userUsername.className = "userRow";
-    userUsername.innerText = username;
+    userUsername.innerText = reimbursementItem.username;
 
     // USERNAME
     let userEmail = document.createElement("td");
     userEmail.className = "userRow";
-    userEmail.innerText = email;
+    userEmail.innerText = reimbursementItem.email;
 
     // ROLE
     let userRole = document.createElement("td");
     userRole.className = "userRow";
-    userRole.innerText = convertRole(role_ID);
+    userRole.innerText = convertRole(reimbursementItem.role_ID);
 
     // Bind HTML elements to the row
     userRow.appendChild(userView);
@@ -110,11 +130,15 @@ function createRow(reimbursementItem)
     // Adds a passive event listener to the View link after it's been added to the document.
     let viewLink = userRow.childNodes[0].firstChild;
     viewLink.addEventListener("click", function() {
-        setUserValue(username);
+        setUserValue(reimbursementItem.username);
     });
 
     // Return the row
     return userRow;
+}
+
+function setUserValue(user) {
+    approveBtn.value = user;
 }
 
 // Converts Role ID
@@ -134,21 +158,19 @@ function convertRole(ID)
 async function approveUser()
 {
     let user = approveBtn.value;
-    console.log("The value of the user to be approve/activated is: " + user);
-    
-        // Search in backend
-        await fetch(`${fetchURL + servletURL + '?username=' + user}`,
-        {
-            method:'GET',  // POST HTTP method
-            headers:{"Content-type":"application/json"},    // Indicate JSON object
-        })
-        .then(response => response.json())
-        .then(data => updateUser(data));
+
+    // Search in backend
+    await fetch(`${FETCH_URL + USER_SERVLET + '?username=' + user}`,
+    {
+        method:'GET',  // GET HTTP method
+        headers:{"Content-type":"application/json"},    // Indicate JSON object
+    })
+    .then(response => response.json())
+    .then(data => updateUser(data));
 }
 
 async function updateUser(data)
 {
-    console.log(data);
     const updatedUser =
     {
         username : data.username,
@@ -160,10 +182,7 @@ async function updateUser(data)
         role_ID : data.role_ID
     }
 
-    console.log(updatedUser);
-    console.log(data.id);
-
-    let response = await fetch(`${fetchURL + servletURL + '?update=' + String(data.id)}`,
+    await fetch(`${FETCH_URL + USER_SERVLET + '?update=' + String(data.id)}`,
     {
         method:'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -173,27 +192,22 @@ async function updateUser(data)
     location.reload(); 
 }
 
-function setUserValue(user) {
-    approveBtn.value = user;
-    console.log("The value of the Approve/Active button is: " + approveBtn.value);
-}
-
 // Function to add a user
 function addUser()
 {
-    window.location.href = addURL;
+    window.location.href = ADD_URL;
 }
 
 // Function to update a user
 function updateUserButton()
 {
-    window.location.href = updateURL;
+    window.location.href = UPDATE_URL;
 }
 
 // Function to delete a user
 function deleteUser()
 {
-    window.location.href = deleteURL;
+    window.location.href = DELETE_URL;
 }
 
 
@@ -201,5 +215,5 @@ function deleteUser()
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }

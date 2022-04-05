@@ -1,9 +1,12 @@
-const homeURL = 'http://127.0.0.1:5500/UI_Files/index.html'; //Home URL
-const newReimbURL = 'newReimbursement.html';
+//Home URL
+const HOME_URL = 'http://127.0.0.1:5500/MayGloRMS/index.html'; 
+
+// New Reimbursement Page
+const NEW_REIMB_URL = 'newReimbursement.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'reimbursements';        // <-- Servlet whose methods should be used
+const FETCH_URL = 'http://localhost:8080/';
+const REIMB_SERVLET = 'reimbursements';
 
 // New Reimbursement Button
 let newReimbBtn = document.getElementById('newReimbBtn');
@@ -30,30 +33,57 @@ let typeData = document.getElementById('typeData');
 let saveBtn = document.getElementById('saveBtn');
 saveBtn.addEventListener('click', saveChanges);
 
-// When the window loads, show reimbursements
-window.onload = getReimbursements;
+// When the window loads, check user and get reimbursements
+window.onload = checkCurrentUser;
+
+// Ensures there is a user logged in
+function checkCurrentUser()
+{
+  // There is a user
+  if (localStorage.getItem('loggedUser'))
+  {
+    getReimbursements();
+  }
+  else  // No user logged in
+  {
+    logOutFunction();
+  }
+}
+
 
 // Get all reimbursements for this user
 async function getReimbursements()
 {
     // Get the reimbursements using loggedUser's ID
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    let response = await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
-    })
-    .then(response => response.json())
-    .then(data => constructRows(data)); // Create the table
+    });
+
+    if (response.status == 200)
+    {
+      let data = await response.json();
+      constructRows(data);
+    }
+    else 
+    {
+      return;
+    }
 }
+
 
 // Create the rows for the table of reimbursements
 function constructRows(arrayReimb)
 {
-    // Get the element containing the table of reimbursements
-    const listArea = document.getElementById("reimbTable");
-
-    // Create a row for each reimbursement, append it to the table
-    arrayReimb.forEach(element => listArea.appendChild(createRow(element)))
+    if (arrayReimb)
+    {
+      // Get the element containing the table of reimbursements
+      const listArea = document.getElementById("reimbTable");
+  
+      // Create a row for each reimbursement, append it to the table
+      arrayReimb.forEach(element => listArea.appendChild(createRow(element)))
+    }
 }
 
 // Creates a row in the reimbursement table for the employee
@@ -123,7 +153,7 @@ async function constructInfo()
 {
 
     // Get the reimbursement
-    let info = await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&reimb_ID=' + this.id}`,
+    let info = await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&reimb_ID=' + this.id}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -168,7 +198,7 @@ async function saveChanges()
     }
 
     // PUT request to update reimbursement
-    await fetch(`${fetchURL + servletURL + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         body: JSON.stringify(reimbObj)
@@ -457,12 +487,12 @@ function convertStatus(ID)
 // Switch to the New Reimbursement Page
 function newReimbursement()
 {
-    window.location.href = newReimbURL;
+    window.location.href = NEW_REIMB_URL;
 }
 
 // Function to log a user out
 function logOutFunction()
 {
     window.localStorage.clear();
-    window.location.href = homeURL;
+    window.location.href = HOME_URL;
 }

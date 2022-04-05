@@ -1,8 +1,12 @@
+//Home URL
+const HOME_URL = 'http://127.0.0.1:5500/MayGloRMS/index.html'; 
 
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'users';                 // <-- Servlet whose methods should be used
+// URLs to access API
+const FETCH_URL = 'http://localhost:8080/';
+const USER_SERVLET = 'users';
 
-const adminURL = 'adminPage.html';          // Admin home page
+// Admin Page
+const ADMIN_URL = 'adminPage.html';
 
 // Create Button
 let createBtn = document.getElementById('createBtn');
@@ -12,7 +16,29 @@ createBtn.addEventListener('click', signUpFunction);
 let cancelBtn = document.getElementById('cancelBtn');
 cancelBtn.addEventListener('click', cancelCreate);
 
+// Logout Button
+let logoutBtn = document.getElementById('logoutBtn');
+logoutBtn.addEventListener('click', logOutFunction);
 
+// When the window loads, check for a logged in user
+window.onload = checkCurrentUser;
+
+// Ensures there is a user logged in
+function checkCurrentUser()
+{
+  // There is a user
+  if (localStorage.getItem('loggedUser'))
+  {
+    console.log('logged in');
+  }
+  else  // No user logged in
+  {
+    console.log('logged out');
+    cancelCreate();
+  }
+}
+
+// Function to run when the create button is pressed
 async function signUpFunction()
 {
     // Create a user with necessary credentials
@@ -39,7 +65,7 @@ async function signUpFunction()
     if (isValid)
     {
         // POST User object to create user in backend
-        let response = await fetch(`${fetchURL + servletURL}`, 
+        let response = await fetch(`${FETCH_URL + USER_SERVLET}`, 
         {
             method:'POST',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
@@ -48,10 +74,10 @@ async function signUpFunction()
     
     
         // User was created successfully
-        if (response.status == 204) 
+        if (response.status == 201) 
         {
             // Switch page
-            window.location.href = adminURL;
+            window.location.href = ADMIN_URL;
         }
         else    // User was not created correctly
         {
@@ -65,8 +91,15 @@ async function signUpFunction()
 }
 
 
-// Function when Back button is clicked
+// Goes back to admin page
 function cancelCreate()
 {
-    window.location.href = adminURL;     // Goes back to admin page
+    window.location.href = ADMIN_URL;
+}
+
+// Function to log a user out
+function logOutFunction()
+{
+    window.localStorage.clear();
+    window.location.href = HOME_URL;
 }

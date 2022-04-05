@@ -1,19 +1,9 @@
-const baseURL = 'http://127.0.0.1:5500/UI_Files/';          // ONLY FOR TESTING
-const indexPage = 'index.html';
-
-const thisURL = window.location.href;
-const employeeURL = 'employees/employeePage.html';    // Page for employees
-const managerURL = 'managers/managerPage.html';      // Page for managers
-const adminURL = 'admins/adminPage.html';          // Page for admins
+// Home Page URL
+const INDEX_PAGE = 'http://127.0.0.1:5500/MayGloRMS/index.html';
 
 // URLs to access API
-const fetchURL = 'http://localhost:8080/';  // <-- URL to use when accessing API
-const servletURL = 'users/';                // <-- Servlet whose methods should be used
-
-// Constants for the dropdown selection
-const EMP = 0;
-const MANAGER = 1;
-const ADMIN = 2;
+const FETCH_URL = 'http://localhost:8080/';
+const USER_SERVLET = 'users';
 
 // Sign Up Button
 let signUpBtn = document.getElementById('signUpBtn');
@@ -50,27 +40,15 @@ async function signUpFunction()
     if (isValid)
     {
         // POST User object to create user in backend
-        let response = await fetch(`${fetchURL + servletURL}`,  // <-- URL/servlet to fetch
+        let response = await fetch(`${FETCH_URL + USER_SERVLET}`,  // <-- URL/servlet to fetch
         {
             method:'POST',  // POST HTTP method
             headers:{"Content-type":"application/json"},    // Indicate JSON object
             body: JSON.stringify(userObj)   // Convert to JSON to send
         });
 
-        // Retrieve data to ensure user was created (not needed?)
-        let data = await fetch(`${fetchURL + servletURL + '?username=' + userObj.username}`,
-        {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(resp => resp.json());
-
-        console.log(data);
-
-        let {id} = data;   // Ensure there is a user
-
         // User was created successfully
-        if (id) 
+        if (response.status == 201)
         {
             goBack();   // Go back home
         }
@@ -89,6 +67,5 @@ async function signUpFunction()
 // Function when Back button is clicked
 function goBack()
 {
-    window.location.href = baseURL + indexPage;
-    // history.back();     // Goes back a page
+    window.location.href = INDEX_PAGE;
 }
