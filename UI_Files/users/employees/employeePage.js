@@ -42,12 +42,10 @@ function checkCurrentUser()
   // There is a user
   if (localStorage.getItem('loggedUser'))
   {
-    console.log('logged in');
     getReimbursements();
   }
   else  // No user logged in
   {
-    console.log('logged out');
     logOutFunction();
   }
 }
@@ -57,23 +55,35 @@ function checkCurrentUser()
 async function getReimbursements()
 {
     // Get the reimbursements using loggedUser's ID
-    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    let response = await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
-    })
-    .then(response => response.json())
-    .then(data => constructRows(data)); // Create the table
+    });
+
+    if (response.status == 200)
+    {
+      let data = await response.json();
+      constructRows(data);
+    }
+    else 
+    {
+      return;
+    }
 }
+
 
 // Create the rows for the table of reimbursements
 function constructRows(arrayReimb)
 {
-    // Get the element containing the table of reimbursements
-    const listArea = document.getElementById("reimbTable");
-
-    // Create a row for each reimbursement, append it to the table
-    arrayReimb.forEach(element => listArea.appendChild(createRow(element)))
+    if (arrayReimb)
+    {
+      // Get the element containing the table of reimbursements
+      const listArea = document.getElementById("reimbTable");
+  
+      // Create a row for each reimbursement, append it to the table
+      arrayReimb.forEach(element => listArea.appendChild(createRow(element)))
+    }
 }
 
 // Creates a row in the reimbursement table for the employee
@@ -143,7 +153,7 @@ async function constructInfo()
 {
 
     // Get the reimbursement
-    let info = await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&reimb_ID=' + this.id}`,
+    let info = await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&reimb_ID=' + this.id}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -188,7 +198,7 @@ async function saveChanges()
     }
 
     // PUT request to update reimbursement
-    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         body: JSON.stringify(reimbObj)

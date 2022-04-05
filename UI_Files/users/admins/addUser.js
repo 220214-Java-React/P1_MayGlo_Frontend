@@ -74,7 +74,7 @@ async function signUpFunction()
     
     
         // User was created successfully
-        if (response.status == 204) 
+        if (response.status == 201) 
         {
             // Switch page
             window.location.href = ADMIN_URL;
