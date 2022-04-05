@@ -1,5 +1,5 @@
 //Home URL
-const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html'; 
+const HOME_URL = 'http://127.0.0.1:5500/MayGloRMS/index.html'; 
 
 // Admin Page
 const ADMIN_URL = 'adminPage.html';

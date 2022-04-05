@@ -1,5 +1,5 @@
 // Home Page URL
-const indexPage = 'http://127.0.0.1:5500/UI_Files/index.html';
+const INDEX_PAGE = 'http://127.0.0.1:5500/MayGloRMS/index.html';
 
 // URLs to access API
 const FETCH_URL = 'http://localhost:8080/';
@@ -67,5 +67,5 @@ async function signUpFunction()
 // Function when Back button is clicked
 function goBack()
 {
-    window.location.href = indexPage;
+    window.location.href = INDEX_PAGE;
 }

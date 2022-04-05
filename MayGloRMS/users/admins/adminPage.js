@@ -1,5 +1,5 @@
 //Home URL
-const HOME_URL = 'http://127.0.0.1:5500/UI_Files/index.html';
+const HOME_URL = 'http://127.0.0.1:5500/MayGloRMS/index.html';
 
 // URLs to access API
 const FETCH_URL = 'http://localhost:8080/';

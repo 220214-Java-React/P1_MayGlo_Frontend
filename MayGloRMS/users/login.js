@@ -1,5 +1,5 @@
 // Home Page
-const INDEX_PAGE = 'http://127.0.0.1:5500/UI_Files/index.html';
+const INDEX_PAGE = 'http://127.0.0.1:5500/MayGloRMS/index.html';
 
 // User Pages
 const EMP_URL = 'employees/employeePage.html';  // Page for employees

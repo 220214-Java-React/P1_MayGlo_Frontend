@@ -8,7 +8,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"
         defer></script>
     <!-- script for this file -->
-    <script src="addUser.js" defer></script>
+    <script src="updateUser.js" defer></script>
 </head>
 
 <body>
@@ -25,51 +25,81 @@
             </div>
         </div>
     </header>
-    <!--Add User Page:
-        - Form to enter credentials
+    <!--Delete User Page:
+            > List of Users
+            > Admin can select a user
+            > Change those credentials
+
+            -- FOR NOW --
+            > Type in username
+            > Offer to delete
         -->
+
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
                 <div>
                     <form>
+                        <h1 class="display-1 text-center">Search for a user.</h1>
+                        <p class="text-center"><em>Please enter a username.</em></p>
+                        <div class="mb-3">
+                            <label class="form-label" class="form-label" for="searchUsername">Username: </label>
+                            <input class="form-control" id="searchUsername" type="text" placeholder="username">
+                        </div>
+
+                        <div class="mb-3 text-center">
+                            <!--Search Button-->
+                            <input class="btn btn-primary" id="searchBtn" type="button" value="Search">
+
+                            <!--Cancel Button-->
+                            <input class="btn btn-secondary" id="cancelBtn" type="button" value="Cancel">
+                        </div>
+                    </form>
+                </div>
+
+                <div>
+                    <form id="credentials">
                         <fieldset>
-                            <h1 class="display-1 text-center">Create a user.</h1>
-                            <p class="text-center"><em>Please enter the user's information.</em></p>
+                            <h1 class="display-3 text-center">Update this user.</h1>
+                            <p class="text-center"><em>Please enter the updated user information.</em></p>
                             <div class="mb-3">
                                 <!--Username Field-->
                                 <label class="form-label" class="form-label" for="username">Enter a new username:
                                 </label>
                                 <input class="form-control" id="username" type="text" name="username"
-                                placeholder="username" required>
+                                    placeholder="username" required>
                             </div>
                             <div class="mb-3">
                                 <!--Password Field-->
                                 <label class="form-label" for="password">Enter a new password: </label>
                                 <input class="form-control" id="password" type="password" name="password"
-                                placeholder="password" required>
+                                    placeholder="password" required>
                             </div>
                             <div class="mb-3">
                                 <!--Email Field-->
                                 <label class="form-label" for="email">Enter a new email: </label>
                                 <input class="form-control" id="email" type="email" name="email"
-                                placeholder="123@email.com" required>
+                                    placeholder="123@email.com" required>
                             </div>
                             <div class="mb-3">
                                 <!--Given Name Field-->
                                 <label class="form-label" for="given_name">Enter a new first name: </label>
                                 <input class="form-control" id="given_name" type="text" name="given_name"
-                                placeholder="John" required>
+                                    placeholder="John" required>
                             </div>
                             <div class="mb-3">
                                 <!--Surname Field-->
                                 <label class="form-label" for="surname">Enter a new surname: </label>
                                 <input class="form-control" id="surname" type="text" name="surname" placeholder="Doe"
-                                required>
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <!--Active Field-->
+                                <input type="checkbox" id="is_Active" name="is_Active">
+                                <label for="is_Active" class="form-label">Account is active</label>
                             </div>
                             <div class="mb-3 text-center">
                                 <!--Role_ID Field-->
-                                <label class="form-label" for="role">Select a role: </label>
                                 <select id="role" name="roles">
                                     <option value="0">Employee</option>
                                     <option value="1">Financial Manager</option>
@@ -78,18 +108,15 @@
                             </div>
                             <div class="mb-3 text-center">
                                 <!--Update Button-->
-                                <input class="btn btn-primary" id="createBtn" type="button" value="Create">
-                                
-                                <!--Cancel Button-->
-                                <input class="btn btn-secondary" id="cancelBtn" type="button" value="Cancel">                            </div>
+                                <input class="btn btn-primary" id="updateBtn" type="button" value="Update">
+                            </div>
                         </fieldset>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-        
-                    
+    <footer class="text-primaryss text-center"><p>© 2022 MayGlo Inc.</p></footer>
 </body>
 
 </html>
