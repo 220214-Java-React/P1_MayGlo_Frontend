@@ -29,11 +29,9 @@ function checkCurrentUser()
   // There is a user
   if (localStorage.getItem('loggedUser'))
   {
-    console.log('logged in');
   }
   else  // No user logged in
   {
-    console.log('logged out');
     cancelReimbursement();
   }
 }
@@ -93,6 +91,7 @@ async function submitReimbursement()
     else
     {
         alert("Missing a field");       // Missing something
+        return;
     }
 
     window.location.href = employeeURL;     // Go back to employee page
