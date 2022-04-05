@@ -7,6 +7,7 @@ const ADMIN_URL = 'adminPage.html';
 // URLs to access API
 const FETCH_URL = 'http://localhost:8080/';
 const USER_SERVLET = 'users';
+const REIMB_SERVLET = 'reimbursements';
 
 // Hide user info form (until user has been searched)
 document.getElementById('credentials').setAttribute("hidden", "true");
@@ -27,6 +28,11 @@ cancelBtn.addEventListener('click', cancelDelete);
 let logoutBtn = document.getElementById('logoutBtn');
 logoutBtn.addEventListener('click', logOutFunction);
 
+// Warning when deleting and user has reimbursements
+const reimbDeleteWarn = document.getElementById('reimbDeleteWarn');
+reimbDeleteWarn.hidden = true;
+
+
 // When the window loads, check for a logged in user
 window.onload = checkCurrentUser;
 
@@ -36,11 +42,9 @@ function checkCurrentUser()
   // There is a user
   if (localStorage.getItem('loggedUser'))
   {
-    console.log('logged in');
   }
   else  // No user logged in
   {
-    console.log('logged out');
     cancelDelete();
   }
 }
@@ -66,6 +70,7 @@ async function searchUser()
 
     // re-hide the form if it's already open
     document.getElementById('credentials').hidden = true;
+    reimbDeleteWarn.hidden = true;
 
     // If user enetered a name
     if (searchName)
@@ -88,16 +93,18 @@ function checkUserFound(data)
         showValues(data)
         // If a user is found, un-hide hidden form
         document.getElementById('credentials').removeAttribute("hidden");
+        reimbDeleteWarn.removeAttribute("hidden");
     }
     else
     {
         alert("User not found.");
         document.getElementById('credentials').hidden = true;
+        reimbDeleteWarn.hidden = true;
     }
 }
 
 // Values to show on HTML page
-function showValues(data)
+async function showValues(data)
 {
     if (data)
     {
@@ -111,6 +118,23 @@ function showValues(data)
         userFound.given_name.value = data.given_name;
         userFound.surname.value = data.surname;
         userFound.role_ID.value = data.role_ID;
+
+        
+        // Get the reimbursements using user's ID
+        let response = await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + data.id + '&role_ID=' + data.role_ID}`,
+        {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        // If user has reimbursements, inform user that those will be deleted
+        if (response.status == 200)
+        {
+            let reimbArray = await response.json();
+            reimbDeleteWarn.removeAttribute('hidden');
+            reimbDeleteWarn.innerText = `${"User has " + reimbArray.length + " reimbursements that will be deleted as well."}`
+        }
+        else return;
     }
 }
 
