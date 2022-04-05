@@ -39,12 +39,10 @@ function checkCurrentUser()
   // There is a user
   if (localStorage.getItem('loggedUser'))
   {
-    console.log('logged in');
     showReimbursements();
   }
   else  // No user logged in
   {
-    console.log('logged out');
     logOutFunction();
   }
 }
@@ -58,7 +56,7 @@ async function showReimbursements()
     // Show pending or approved/denied reimb's
     let sendPending = pendingToggle.checked == true ? 1 : 0;
 
-    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&pending=' + sendPending}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID') + '&pending=' + sendPending}`,
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -182,7 +180,7 @@ function createRow(reimbursementItem)
 // Function for when approve button is clicked
 async function approveReimbursement()
 {
-    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -195,7 +193,7 @@ async function approveReimbursement()
 // Function for when deny button is clicked
 async function denyReimbursement()
 {
-    await fetch(`${FETCH_URL + REIMB_SERVLET + "/?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
+    await fetch(`${FETCH_URL + REIMB_SERVLET + "?user_ID=" + localStorage.getItem('loggedUser') + '&role_ID=' + localStorage.getItem('role_ID')}`,
     {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
